@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cure Collection - Supporting Blood Cancer Warriors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b0000;
+            --secondary-color: #8b0000;
+            --accent-color: #8b0000;
+            --text-dark: #000000;
+            --text-light: #000000;
+            --background: #fff;
+            --card-bg: #fff5f5;
+            --success: #8b0000;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Announcement Banner */
+        .announcement-banner {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .announcement-banner i {
+            margin-right: 0.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 41px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 121px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffebeb 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 82, 110, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Christmas Deals Section */
+        .christmas-deals {
+            padding: 4rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .christmas-deals h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .bundles-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .bundle-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            color: var(--text-dark);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .bundle-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .bundle-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 1rem 0;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Featured Products */
+        .featured-products {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .survivor-name {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .add-to-cart-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Donation Section */
+        .donation-section {
+            padding: 4rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .donation-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .donation-cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .donation-card {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            color: var(--text-dark);
+        }
+
+        .donation-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .donation-card p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Shopping Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-modal.active {
+            display: flex;
+        }
+
+        .cart-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            border-radius: 20px;
+            padding: 2rem;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--card-bg);
+            padding-bottom: 1rem;
+        }
+
+        .close-cart {
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--text-light);
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--card-bg);
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-options {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .qty-btn {
+            background: var(--card-bg);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cart-item-price {
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .remove-item {
+            cursor: pointer;
+            color: var(--primary-color);
+            border: none;
+            background: none;
+            font-size: 1.2rem;
+        }
+
+        .cart-summary {
+            border-top: 2px solid var(--card-bg);
+            padding-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .first-purchase-discount {
+            background: var(--accent-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkout-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checkout-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .venmo-btn {
+            background: #3D95CE;
+            color: white;
+        }
+
+        .cash-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        /* Survivors Section */
+        .survivors-section {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+        }
+
+        .survivors-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .survivor-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .survivor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .survivor-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--primary-color);
+        }
+
+        .survivor-info {
+            padding: 1.5rem;
+        }
+
+        .survivor-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .survivor-tagline {
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Product Detail Modal */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .product-modal.active {
+            display: flex;
+        }
+
+        .product-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .product-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .product-customization {
+            margin: 2rem 0;
+        }
+
+        .customization-group {
+            margin-bottom: 2rem;
+        }
+
+        .customization-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .customization-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--card-bg);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .charm-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .charm-option {
+            padding: 1rem;
+            border: 2px solid var(--card-bg);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .charm-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .charm-option.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Survivor Story Modal */
+        .survivor-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .survivor-modal.active {
+            display: flex;
+        }
+
+        .survivor-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .survivor-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--card-bg);
+            padding-bottom: 1rem;
+        }
+
+        .survivor-modal-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .survivor-modal h2 {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .survivor-modal-tagline {
+            color: var(--text-light);
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .survivor-modal-story {
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .close-survivor-modal {
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--text-light);
+            line-height: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 111px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 111px);
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                transition: right 0.3s;
+                gap: 1.5rem;
+                align-items: flex-start;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.5rem 0;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .bundles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donation-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .survivors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .christmas-deals h2 {
+                font-size: 1.8rem;
+            }
+
+            .video-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        <i class="fas fa-gift"></i> Get 10% OFF your first purchase when you donate to BCU!
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">The Cure Collection</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#shop" onclick="closeMenu()"><i class="fas fa-store"></i> Shop</a></li>
+                <li><a href="#christmas" onclick="closeMenu()"><i class="fas fa-gifts"></i> Deals</a></li>
+                <li><a href="#survivors" onclick="closeMenu()"><i class="fas fa-users"></i> Survivors</a></li>
+                <li><a href="#donate" onclick="closeMenu()"><i class="fas fa-heart"></i> Donate</a></li>
+                <li class="cart-icon" onclick="toggleCart(); closeMenu();">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Wear the hope, Fund the cure</h1>
+        <p>Beautiful necklaces and charms created to honor blood cancer survivors and support the fight against blood cancer.</p>
+        <div class="cta-buttons">
+            <a href="#shop" class="btn btn-primary">Shop Collection</a>
+            <a href="#donate" class="btn btn-secondary">Donate Now</a>
+        </div>
+    </section>
+
+    <!-- Christmas Deals Section -->
+    <section class="christmas-deals" id="christmas">
+        <h2><i class="fas fa-tree"></i> Christmas Deals & Bundles <i class="fas fa-tree"></i></h2>
+        <div class="bundles-grid">
+            <div class="bundle-card">
+                <h3><i class="fas fa-snowflake"></i> Example Bundle 1</h3>
+                <p>Example description for this bundle</p>
+                <div class="bundle-price">
+                    $45.99
+                    <div class="original-price">$59.99</div>
+                </div>
+                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 1', 45.99)">Add to Cart</button>
+            </div>
+            <div class="bundle-card">
+                <h3><i class="fas fa-gift"></i> Example Bundle 2</h3>
+                <p>Example description for this bundle</p>
+                <div class="bundle-price">
+                    $79.99
+                    <div class="original-price">$109.99</div>
+                </div>
+                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 2', 79.99)">Add to Cart</button>
+            </div>
+            <div class="bundle-card">
+                <h3><i class="fas fa-heart"></i> Example Bundle 3</h3>
+                <p>Example description for this bundle</p>
+                <div class="bundle-price">
+                    $129.99
+                    <div class="original-price">$179.99</div>
+                </div>
+                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 3', 129.99)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <h2>Our Products</h2>
+        <p style="max-width: 700px; margin: 0 auto 2rem; color: var(--text-light);">
+            Explore our collection of beautiful necklaces and charms, each piece designed to inspire hope and support the cure.
+        </p>
+        <div class="video-container">
+            <video width="100%" height="500" autoplay loop muted playsinline>
+                <source src="promovideo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products" id="shop">
+        <div class="section-header">
+            <h2>Featured Collection</h2>
+            <p style="color: var(--text-light);">Each piece honors a brave survivor's journey</p>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be dynamically loaded -->
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section class="donation-section" id="donate">
+        <h2>Make a Direct Impact</h2>
+        <p style="margin-bottom: 3rem; font-size: 1.1rem;">100% of donations go directly to blood cancer research and patient support</p>
+        <div class="donation-cards">
+            <div class="donation-card">
+                <h3><i class="fas fa-hand-holding-heart"></i> Donate to BCU</h3>
+                <p>Support Blood Cancer United in their mission to beat blood cancer through research, support, and advocacy.</p>
+                <a href="https://www.bloodcancerunited.org/donate" target="_blank" class="btn btn-primary">Donate to BCU</a>
+            </div>
+            <div class="donation-card">
+                <h3><i class="fas fa-star"></i> Support Sam's Team</h3>
+                <p>Join Sam's fundraising team and help us reach our goal to support blood cancer patients and their families.</p>
+                <a href="#" target="_blank" class="btn btn-primary" onclick="alert('Sam\'s Team Link: [Add your team link here]')">Join Sam's Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survivors Section -->
+    <section class="survivors-section" id="survivors">
+        <div class="section-header">
+            <h2>Our Warriors</h2>
+            <p style="color: var(--text-light);">Read the inspiring stories of courage and resilience</p>
+        </div>
+        <div class="survivors-grid" id="survivorsGrid">
+            <!-- Survivor cards will be dynamically loaded -->
+        </div>
+    </section>
+
+    <!-- Survivor Story Modal -->
+    <div class="survivor-modal" id="survivorModal">
+        <div class="survivor-modal-content">
+            <div class="survivor-modal-header">
+                <div style="flex: 1;">
+                    <div class="survivor-modal-icon" id="survivorModalIcon"></div>
+                    <h2 id="survivorModalName"></h2>
+                    <div class="survivor-modal-tagline" id="survivorModalTagline"></div>
+                </div>
+                <button class="close-survivor-modal" onclick="closeSurvivorModal()">×</button>
+            </div>
+            <div class="survivor-modal-story" id="survivorModalStory"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#survivors">Survivors</a>
+                <a href="#donate">Donate</a>
+            </div>
+            <p>&copy; 2025 The Cure Collection. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItemsContainer">
+                <div class="empty-cart">
+                    <p style="font-size: 3rem;">🛒</p>
+                    <p>Your cart is empty</p>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="toggleCart()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <div class="product-modal-header">
+                <h2 id="modalProductName"></h2>
+                <button class="close-modal" onclick="closeProductModal()">×</button>
+            </div>
+            <div id="modalProductContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Product Database
+        const products = [
+            {
+                id: 1,
+                name: "Example Product 1",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 29.99,
+                icon: '<i class="fas fa-gem"></i>',
+                type: "necklace"
+            },
+            {
+                id: 2,
+                name: "Example Product 2",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 34.99,
+                icon: '<i class="fas fa-star"></i>',
+                type: "necklace"
+            },
+            {
+                id: 3,
+                name: "Example Product 3",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 32.99,
+                icon: '<i class="fas fa-hand-fist"></i>',
+                type: "necklace"
+            },
+            {
+                id: 4,
+                name: "Example Product 4",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 36.99,
+                icon: '<i class="fas fa-shield-halved"></i>',
+                type: "necklace"
+            },
+            {
+                id: 5,
+                name: "Example Product 5",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 28.99,
+                icon: '<i class="fas fa-sparkles"></i>',
+                type: "necklace"
+            },
+            {
+                id: 6,
+                name: "Example Product 6",
+                survivor: "Example Survivor Name",
+                description: "Example product description",
+                price: 31.99,
+                icon: '<i class="fas fa-trophy"></i>',
+                type: "necklace"
+            }
+        ];
+
+        // Survivors Database
+        const survivors = [
+            {
+                name: "Example Survivor 1",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-heart"></i>'
+            },
+            {
+                name: "Example Survivor 2",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-star"></i>'
+            },
+            {
+                name: "Example Survivor 3",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-heart-pulse"></i>'
+            },
+            {
+                name: "Example Survivor 4",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-bolt"></i>'
+            },
+            {
+                name: "Example Survivor 5",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-dove"></i>'
+            },
+            {
+                name: "Example Survivor 6",
+                tagline: "Example tagline",
+                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
+                icon: '<i class="fas fa-ribbon"></i>'
+            }
+        ];
+
+        // Packaging options
+        const packagingOptions = [
+            { name: "Standard Box", price: 0 },
+            { name: "Premium Gift Box", price: 5.99 }
+        ];
+
+        // Charm options
+        const charmOptions = [
+            { name: "Example Charm 1", price: 4.99, icon: '<i class="fas fa-ribbon"></i>' },
+            { name: "Example Charm 2", price: 4.99, icon: '<i class="fas fa-heart"></i>' },
+            { name: "Example Charm 3", price: 4.99, icon: '<i class="fas fa-star"></i>' },
+            { name: "Example Charm 4", price: 4.99, icon: '<i class="fas fa-dove"></i>' }
+        ];
+
+        // Cart management
+        let cart = [];
+        let firstPurchase = true;
+
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card" onclick="openProductModal(${product.id})">
+                    <div class="product-image">${product.icon}</div>
+                    <div class="product-info">
+                        <div class="survivor-name">In Honor of ${product.survivor}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductModal(${product.id})">
+                                Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadSurvivors() {
+            const grid = document.getElementById('survivorsGrid');
+            grid.innerHTML = survivors.map(survivor => `
+                <div class="survivor-card" onclick="showSurvivorStory('${survivor.name}')">
+                    <div class="survivor-photo">${survivor.icon}</div>
+                    <div class="survivor-info">
+                        <h3>${survivor.name}</h3>
+                        <div class="survivor-tagline">${survivor.tagline}</div>
+                        <p>${survivor.story.substring(0, 150)}...</p>
+                        <button class="btn btn-secondary" style="margin-top: 1rem;">Read Full Story</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showSurvivorStory(name) {
+            const survivor = survivors.find(s => s.name === name);
+            const modal = document.getElementById('survivorModal');
+            document.getElementById('survivorModalIcon').innerHTML = survivor.icon;
+            document.getElementById('survivorModalName').textContent = survivor.name;
+            document.getElementById('survivorModalTagline').textContent = survivor.tagline;
+            document.getElementById('survivorModalStory').textContent = survivor.story;
+            modal.classList.add('active');
+        }
+
+        function closeSurvivorModal() {
+            document.getElementById('survivorModal').classList.remove('active');
+        }
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            const modal = document.getElementById('productModal');
+            const modalName = document.getElementById('modalProductName');
+            const modalContent = document.getElementById('modalProductContent');
+
+            modalName.textContent = product.name;
+            modalContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 6rem; margin-bottom: 1rem;">${product.icon}</div>
+                    <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
+                    <p style="color: var(--text-light); margin-top: 1rem;">${product.description}</p>
+                    <div class="product-price" style="margin-top: 1rem;">$${product.price.toFixed(2)}</div>
+                </div>
+
+                <div class="product-customization">
+                    <div class="customization-group">
+                        <label>Select Packaging:</label>
+                        <select id="packaging-${productId}">
+                            ${packagingOptions.map(pkg => `
+                                <option value="${pkg.name}" data-price="${pkg.price}">
+                                    ${pkg.name}${pkg.price > 0 ? ` (+$${pkg.price.toFixed(2)})` : ''}
+                                </option>
+                            `).join('')}
+                        </select>
+                    </div>
+
+                    <div class="customization-group">
+                        <label>Add Charms (optional):</label>
+                        <div class="charm-options">
+                            ${charmOptions.map(charm => `
+                                <div class="charm-option" onclick="toggleCharm(this, '${charm.name}', ${charm.price})">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${charm.icon}</div>
+                                    <div style="font-size: 0.8rem;">${charm.name}</div>
+                                    <div style="font-size: 0.9rem; font-weight: 600; margin-top: 0.3rem;">+$${charm.price.toFixed(2)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="customization-group">
+                        <label>Quantity:</label>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
+                            <span id="modal-qty" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                            <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 2rem;" 
+                        onclick="addCustomizedToCart(${productId})">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        let modalQty = 1;
+        let selectedCharms = [];
+
+        function changeModalQty(delta) {
+            modalQty = Math.max(1, modalQty + delta);
+            document.getElementById('modal-qty').textContent = modalQty;
+        }
+
+        function toggleCharm(element, charmName, price) {
+            element.classList.toggle('selected');
+            const index = selectedCharms.findIndex(c => c.name === charmName);
+            if (index > -1) {
+                selectedCharms.splice(index, 1);
+            } else {
+                selectedCharms.push({ name: charmName, price: price });
+            }
+        }
+
+        function addCustomizedToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const packaging = document.getElementById(`packaging-${productId}`);
+            const selectedOption = packaging.options[packaging.selectedIndex];
+            const packagingPrice = parseFloat(selectedOption.dataset.price);
+
+            const charmTotal = selectedCharms.reduce((sum, charm) => sum + charm.price, 0);
+            const totalPrice = (product.price + packagingPrice + charmTotal) * modalQty;
+
+            const cartItem = {
+                id: Date.now(),
+                productId: product.id,
+                name: product.name,
+                icon: product.icon,
+                basePrice: product.price,
+                packaging: selectedOption.value,
+                charms: [...selectedCharms],
+                quantity: modalQty,
+                totalPrice: totalPrice
+            };
+
+            cart.push(cartItem);
+            updateCart();
+            closeProductModal();
+            
+            // Reset selections
+            modalQty = 1;
+            selectedCharms = [];
+            
+            alert('Added to cart!');
+        }
+
+        function addBundleToCart(bundleName, price) {
+            const cartItem = {
+                id: Date.now(),
+                name: bundleName,
+                icon: '<i class="fas fa-gift"></i>',
+                basePrice: price,
+                quantity: 1,
+                totalPrice: price,
+                isBundle: true
+            };
+            cart.push(cartItem);
+            updateCart();
+            alert('Bundle added to cart!');
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <p style="font-size: 3rem; color: var(--primary-color);"><i class="fas fa-shopping-cart"></i></p>
+                        <p>Your cart is empty</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="toggleCart()">Continue Shopping</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            const discount = firstPurchase ? subtotal * 0.1 : 0;
+            const total = subtotal - discount;
+
+            cartItemsContainer.innerHTML = `
+                <div class="cart-items">
+                    ${cart.map(item => `
+                        <div class="cart-item">
+                            <div class="cart-item-image">${item.icon}</div>
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                ${!item.isBundle ? `
+                                    <div class="cart-item-options">
+                                        ${item.packaging ? `Packaging: ${item.packaging}<br>` : ''}
+                                        ${item.charms && item.charms.length > 0 ? `Charms: ${item.charms.map(c => c.name).join(', ')}` : ''}
+                                    </div>
+                                ` : ''}
+                                <div class="cart-item-quantity">
+                                    <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="qty-btn" onclick="updateItemQty(${item.id}, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="cart-item-price">$${item.totalPrice.toFixed(2)}</div>
+                            <button class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="cart-summary">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Subtotal:</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    ${firstPurchase ? `
+                        <div class="first-purchase-discount">
+                            <span><i class="fas fa-gift"></i></span>
+                            <span>First Purchase Discount (10%):</span>
+                            <span style="margin-left: auto; font-weight: 600;">-$${discount.toFixed(2)}</span>
+                        </div>
+                    ` : ''}
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                </div>
+
+                <div class="checkout-buttons">
+                    <button class="checkout-btn venmo-btn" onclick="checkout('venmo')">
+                        <i class="fas fa-credit-card"></i> Pay with Venmo
+                    </button>
+                    <button class="checkout-btn cash-btn" onclick="checkout('cash')">
+                        <i class="fas fa-money-bill-wave"></i> Cash Payment
+                    </button>
+                </div>
+            `;
+        }
+
+        function updateItemQty(itemId, delta) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                const newQty = item.quantity + delta;
+                if (newQty > 0) {
+                    item.quantity = newQty;
+                    item.totalPrice = (item.basePrice + 
+                        (item.packaging ? packagingOptions.find(p => p.name === item.packaging).price : 0) +
+                        (item.charms ? item.charms.reduce((sum, c) => sum + c.price, 0) : 0)) * newQty;
+                    updateCart();
+                }
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
+        }
+
+        function checkout(method) {
+            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            const discount = firstPurchase ? total * 0.1 : 0;
+            const finalTotal = total - discount;
+
+            let receipt = `THE CURE COLLECTION\n`;
+            receipt += `================================\n\n`;
+            receipt += `ORDER SUMMARY\n`;
+            receipt += `Date: ${new Date().toLocaleDateString()}\n`;
+            receipt += `Time: ${new Date().toLocaleTimeString()}\n\n`;
+            
+            cart.forEach(item => {
+                receipt += `${item.name} x${item.quantity}\n`;
+                if (item.packaging) receipt += `  Packaging: ${item.packaging}\n`;
+                if (item.charms && item.charms.length > 0) {
+                    receipt += `  Charms: ${item.charms.map(c => c.name).join(', ')}\n`;
+                }
+                receipt += `  $${item.totalPrice.toFixed(2)}\n\n`;
+            });
+
+            receipt += `--------------------------------\n`;
+            receipt += `Subtotal: $${total.toFixed(2)}\n`;
+            if (firstPurchase) {
+                receipt += `First Purchase Discount (10%): -$${discount.toFixed(2)}\n`;
+            }
+            receipt += `TOTAL: $${finalTotal.toFixed(2)}\n`;
+            receipt += `================================\n\n`;
+            receipt += `Payment Method: ${method.toUpperCase()}\n`;
+            
+            if (method === 'venmo') {
+                receipt += `\nVenmo: @TheCureCollection\n`;
+                receipt += `Please include order ID in payment note\n`;
+            }
+
+            receipt += `\nThank you for supporting blood cancer warriors!\n`;
+
+            alert(receipt);
+
+            if (confirm('Would you like to download your receipt?')) {
+                const blob = new Blob([receipt], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `TheCureCollection_Receipt_${Date.now()}.txt`;
+                a.click();
+            }
+
+            // Clear cart
+            cart = [];
+            firstPurchase = false;
+            updateCart();
+            toggleCart();
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+            loadSurvivors();
+            updateCart();
+        });
+
+        // Close modals when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        document.getElementById('survivorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSurvivorModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger');
+            if (!e.target.closest('.nav-container') && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
