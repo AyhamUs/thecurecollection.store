@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         * {
             margin: 0;
@@ -51,6 +52,29 @@
             margin-right: 0.5rem;
         }
 
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 10000;
+            max-width: 300px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -71,12 +95,19 @@
             align-items: center;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .logo {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 2rem;
-            font-weight: 400;
-            color: var(--primary-color);
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
         }
 
         .nav-links {
@@ -214,15 +245,29 @@
         /* Christmas Deals Section */
         .christmas-deals {
             padding: 4rem 2rem;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, #8b0000, #b22222, #dc143c);
             color: white;
             text-align: center;
+            position: relative;
+        }
+
+        .christmas-deals::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(255,255,255,0.1)" font-size="20" y="50%">❄</text></svg>') repeat;
+            pointer-events: none;
         }
 
         .christmas-deals h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
         }
 
         .bundles-grid {
@@ -231,6 +276,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .bundle-card {
@@ -239,6 +286,12 @@
             border-radius: 20px;
             color: var(--text-dark);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bundle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .bundle-card h3 {
@@ -314,6 +367,8 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
@@ -330,10 +385,20 @@
             justify-content: center;
             font-size: 4rem;
             color: var(--primary-color);
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .product-info {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .survivor-name {
@@ -358,6 +423,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: auto;
         }
 
         .product-price {
@@ -620,12 +686,13 @@
         .survivor-photo {
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: var(--primary-color);
+            overflow: hidden;
+        }
+
+        .survivor-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .survivor-info {
@@ -741,32 +808,6 @@
             font-size: 1rem;
         }
 
-        .charm-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .charm-option {
-            padding: 1rem;
-            border: 2px solid var(--card-bg);
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .charm-option:hover {
-            border-color: var(--primary-color);
-        }
-
-        .charm-option.selected {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
         /* Survivor Story Modal */
         .survivor-modal {
             display: none;
@@ -807,10 +848,15 @@
         }
 
         .survivor-modal-icon {
-            font-size: 4rem;
-            color: var(--primary-color);
             text-align: center;
             margin-bottom: 1rem;
+        }
+
+        .survivor-modal-icon img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .survivor-modal h2 {
@@ -888,8 +934,8 @@
                 font-size: 1rem;
             }
 
-            .logo {
-                font-size: 1.5rem;
+            .logo img {
+                height: 40px;
             }
 
             .products-grid {
@@ -948,39 +994,35 @@
 <body>
     <!-- Announcement Banner -->
     <div class="announcement-banner">
-        <i class="fas fa-gift"></i> Get 10% OFF your first purchase when you donate to BCU!
+        <i class="fas fa-gift"></i> Get 10% OFF your first purchase when you donate to BCU when you email us proof!
     </div>
 
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">The Cure Collection</a>
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" onclick="closeMenu()"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#shop" onclick="closeMenu()"><i class="fas fa-store"></i> Shop</a></li>
-                <li><a href="#christmas" onclick="closeMenu()"><i class="fas fa-gifts"></i> Deals</a></li>
-                <li><a href="#survivors" onclick="closeMenu()"><i class="fas fa-users"></i> Survivors</a></li>
-                <li><a href="#donate" onclick="closeMenu()"><i class="fas fa-heart"></i> Donate</a></li>
-                <li class="cart-icon" onclick="toggleCart(); closeMenu();">
+            <a href="#" class="logo"><img src="logo.png" alt="The Cure Collection"></a>
+            <div class="nav-right">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" onclick="closeMenu()"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#shop" onclick="closeMenu()"><i class="fas fa-store"></i> Shop</a></li>
+                    <li><a href="#christmas" onclick="closeMenu()"><i class="fas fa-gifts"></i> Deals</a></li>
+                    <li><a href="#survivors" onclick="closeMenu()"><i class="fas fa-users"></i> Survivors</a></li>
+                    <li><a href="#donate" onclick="closeMenu()"><i class="fas fa-heart"></i> Donate</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart(); closeMenu();">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
-                </li>
-            </ul>
-        </div>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <h1>Wear the hope, Fund the cure</h1>
-        <p>Beautiful necklaces and charms created to honor blood cancer survivors and support the fight against blood cancer.</p>
+        <h1>The Cure Collection</h1>
+        <p>Beautiful necklaces and charms created to honor blood cancer survivors and support the fight against blood cancer. 20% of all profits are donated straight to Blood Cancer United.</p>
         <div class="cta-buttons">
-            <a href="#shop" class="btn btn-primary">Shop Collection</a>
-            <a href="#donate" class="btn btn-secondary">Donate Now</a>
+            <a href="#shop" class="btn btn-primary"><i class="fas fa-store"></i> Shop Collection</a>
+            <a href="#donate" class="btn btn-secondary"><i class="fas fa-heart"></i> Donate Now</a>
         </div>
     </section>
 
@@ -989,31 +1031,34 @@
         <h2><i class="fas fa-tree"></i> Christmas Deals & Bundles <i class="fas fa-tree"></i></h2>
         <div class="bundles-grid">
             <div class="bundle-card">
-                <h3><i class="fas fa-snowflake"></i> Example Bundle 1</h3>
-                <p>Example description for this bundle</p>
+                <img src="products/Gold Rings.png" alt="Diamond Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                <h3><i class="fas fa-gem"></i> Diamond Bundle</h3>
+                <p>3 diamond rings - perfect for gifting or collecting</p>
                 <div class="bundle-price">
-                    $45.99
-                    <div class="original-price">$59.99</div>
+                    $12.00
+                    <div class="original-price">$18.00</div>
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 1', 45.99)">Add to Cart</button>
+                <button class="btn btn-primary" onclick="addBundleToCart('Diamond Bundle', 12.00)">Add to Cart</button>
             </div>
             <div class="bundle-card">
-                <h3><i class="fas fa-gift"></i> Example Bundle 2</h3>
-                <p>Example description for this bundle</p>
+                <img src="products/Gold Rings.png" alt="Simple Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                <h3><i class="fas fa-circle"></i> Simple Bundle</h3>
+                <p>6 simple rings - affordable and elegant collection</p>
                 <div class="bundle-price">
-                    $79.99
-                    <div class="original-price">$109.99</div>
+                    $9.00
+                    <div class="original-price">$15.00</div>
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 2', 79.99)">Add to Cart</button>
+                <button class="btn btn-primary" onclick="addBundleToCart('Simple Bundle', 9.00)">Add to Cart</button>
             </div>
             <div class="bundle-card">
-                <h3><i class="fas fa-heart"></i> Example Bundle 3</h3>
-                <p>Example description for this bundle</p>
+                <img src="products/Gold Rings.png" alt="Whole Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                <h3><i class="fas fa-heart"></i> Whole Bundle</h3>
+                <p>Both diamond and simple rings bundle - complete collection</p>
                 <div class="bundle-price">
-                    $129.99
-                    <div class="original-price">$179.99</div>
+                    $14.00
+                    <div class="original-price">$20.00</div>
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Example Bundle 3', 129.99)">Add to Cart</button>
+                <button class="btn btn-primary" onclick="addBundleToCart('Whole Bundle', 14.00)">Add to Cart</button>
             </div>
         </div>
     </section>
@@ -1128,102 +1173,180 @@
         </div>
     </div>
 
-    <script>
+    <script defer>
         // Product Database
         const products = [
             {
                 id: 1,
-                name: "Example Product 1",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 29.99,
+                name: "AnnaKate Blood Drop Necklace",
+                survivor: "AnnaKate",
+                description: "Yellow gold brass cable chain and teardrop, 2g metal",
+                price: 15.00,
                 icon: '<i class="fas fa-gem"></i>',
+                image: "products/AnnaKate Blood Drop Necklace.png",
                 type: "necklace"
             },
             {
                 id: 2,
-                name: "Example Product 2",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 34.99,
+                name: "Sofia Blood Drop Gem Necklace",
+                survivor: "Sofia",
+                description: "C-link chain with lobster clasp, gold stainless steel, & red glass gem",
+                price: 15.00,
                 icon: '<i class="fas fa-star"></i>',
+                image: "products/Sofia Blood Drop Gem Necklace .png",
                 type: "necklace"
             },
             {
                 id: 3,
-                name: "Example Product 3",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 32.99,
-                icon: '<i class="fas fa-hand-fist"></i>',
+                name: "Henry Chain Necklace",
+                survivor: "Henry",
+                description: "18\" or 20\" (length) 0.4\"(width) stainless steel wheat type chain with lobster clasp",
+                price: 15.00,
+                icon: '<i class="fas fa-shield-halved"></i>',
+                image: "products/Henry Chain Necklace.png",
                 type: "necklace"
             },
             {
                 id: 4,
-                name: "Example Product 4",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 36.99,
-                icon: '<i class="fas fa-shield-halved"></i>',
+                name: "Will Cross Necklace",
+                survivor: "Will",
+                description: "22\" or 20\" 5g stainless steel chain with lobster clasp and cross",
+                price: 15.00,
+                icon: '<i class="fas fa-sparkles"></i>',
+                image: "products/Will Cross Necklace.png",
                 type: "necklace"
             },
             {
                 id: 5,
-                name: "Example Product 5",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 28.99,
-                icon: '<i class="fas fa-sparkles"></i>',
+                name: "Emily Heart Knot Necklace",
+                survivor: "Emily",
+                description: "Gold brass chain with heart knot charm",
+                price: 15.00,
+                icon: '<i class="fas fa-heart"></i>',
+                image: "products/Emily Heart Knot Necklace.png",
                 type: "necklace"
             },
             {
                 id: 6,
-                name: "Example Product 6",
-                survivor: "Example Survivor Name",
-                description: "Example product description",
-                price: 31.99,
+                name: "Gabe Chain Bracelet 3 pack",
+                survivor: "Gabe",
+                description: "Sterling silver, cable chain and other chain variants. Bracelets with lobster clasps",
+                price: 7.00,
                 icon: '<i class="fas fa-trophy"></i>',
-                type: "necklace"
+                image: "products/Gabe Chain Bracelet.png",
+                type: "bracelet"
+            },
+            {
+                id: 7,
+                name: "Beaded Bracelets",
+                survivor: "Blood Cancer Survivors",
+                description: "Brass beads, elastic band with lobster claw. $7 each",
+                price: 7.00,
+                icon: '<i class="fas fa-hand-fist"></i>',
+                image: "products/BeadedBracelets.png",
+                type: "bracelet"
+            },
+            {
+                id: 8,
+                name: "Nicole Earrings",
+                survivor: "Nicole",
+                description: "Stainless steel snap back dangle earrings with red gems",
+                price: 14.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/Nicole Earrings.png",
+                type: "earrings"
+            },
+            {
+                id: 9,
+                name: "Diamond Bundle",
+                survivor: "Blood Cancer Survivors",
+                description: "3 diamond rings",
+                price: 12.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/Gold Rings.png",
+                type: "ring"
+            },
+            {
+                id: 10,
+                name: "Simple Bundle",
+                survivor: "Blood Cancer Survivors",
+                description: "6 simple rings",
+                price: 9.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/Gold Rings.png",
+                type: "ring"
+            },
+            {
+                id: 11,
+                name: "Whole Bundle",
+                survivor: "Blood Cancer Survivors",
+                description: "Both diamond and simple rings bundle",
+                price: 14.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/Gold Rings.png",
+                type: "ring"
+            },
+            {
+                id: 12,
+                name: "Melanie Heart Adjustable Ring",
+                survivor: "Melanie",
+                description: "Adjustable stainless steel gold ring with heart gemstone",
+                price: 12.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/Melanie Heart Adjustable Ring.png",
+                type: "ring"
             }
         ];
 
         // Survivors Database
         const survivors = [
             {
-                name: "Example Survivor 1",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-heart"></i>'
+                name: "AnnaKate",
+                tagline: "Blood Cancer Survivor",
+                story: "AnnaKate's journey through blood cancer has inspired countless others. Her strength and hope continue to drive the fight against this disease.",
+                image: "annakate.png"
             },
             {
-                name: "Example Survivor 2",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-star"></i>'
+                name: "Sofia",
+                tagline: "Warrior of Hope",
+                story: "Sofia's battle with blood cancer taught her the true meaning of resilience. She now dedicates her life to supporting others in their fight.",
+                image: "sofia.png"
             },
             {
-                name: "Example Survivor 3",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-heart-pulse"></i>'
+                name: "Henry",
+                tagline: "Survivor and Advocate",
+                story: "Henry's experience with blood cancer led him to become a passionate advocate for research and support for blood cancer patients.",
+                image: "henry.png"
             },
             {
-                name: "Example Survivor 4",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-bolt"></i>'
+                name: "Will",
+                tagline: "Faith and Strength",
+                story: "Will's faith carried him through his blood cancer journey, and now he shares his story to inspire hope in others.",
+                image: "will.png"
             },
             {
-                name: "Example Survivor 5",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-dove"></i>'
+                name: "Gabe",
+                tagline: "Chain of Hope",
+                story: "Gabe's recovery from blood cancer symbolizes the unbreakable chain of hope that connects all survivors.",
+                image: "gabe.png"
             },
             {
-                name: "Example Survivor 6",
-                tagline: "Example tagline",
-                story: "Example survivor story and description goes here. This is where you can share the inspiring journey of courage and resilience.",
-                icon: '<i class="fas fa-ribbon"></i>'
+                name: "Nicole",
+                tagline: "Gem of Courage",
+                story: "Nicole's sparkling spirit shines through her blood cancer survival story, reminding us all of the beauty in perseverance.",
+                image: "nicole.png"
+            },
+            {
+                name: "Emily",
+                tagline: "Heart of a Fighter",
+                story: "Emily's heart-shaped knot represents the love and determination that helped her overcome blood cancer.",
+                image: "emily.png"
+            },
+            {
+                name: "Melanie",
+                tagline: "Ring of Victory",
+                story: "Melanie's adjustable ring symbolizes the flexibility and strength needed to conquer blood cancer.",
+                image: "melanie.png"
             }
         ];
 
@@ -1233,23 +1356,17 @@
             { name: "Premium Gift Box", price: 5.99 }
         ];
 
-        // Charm options
-        const charmOptions = [
-            { name: "Example Charm 1", price: 4.99, icon: '<i class="fas fa-ribbon"></i>' },
-            { name: "Example Charm 2", price: 4.99, icon: '<i class="fas fa-heart"></i>' },
-            { name: "Example Charm 3", price: 4.99, icon: '<i class="fas fa-star"></i>' },
-            { name: "Example Charm 4", price: 4.99, icon: '<i class="fas fa-dove"></i>' }
-        ];
-
         // Cart management
         let cart = [];
-        let firstPurchase = true;
+        let appliedPromo = false;
+        let selectedPackaging = 'standard'; // 'standard' or 'premium'
+        let selectedShipping = 'central'; // 'central' or 'home'
 
         function loadProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(product => `
                 <div class="product-card" onclick="openProductModal(${product.id})">
-                    <div class="product-image">${product.icon}</div>
+                    <div class="product-image"><img src="${product.image}" alt="${product.name}"></div>
                     <div class="product-info">
                         <div class="survivor-name">In Honor of ${product.survivor}</div>
                         <div class="product-name">${product.name}</div>
@@ -1269,7 +1386,7 @@
             const grid = document.getElementById('survivorsGrid');
             grid.innerHTML = survivors.map(survivor => `
                 <div class="survivor-card" onclick="showSurvivorStory('${survivor.name}')">
-                    <div class="survivor-photo">${survivor.icon}</div>
+                    <div class="survivor-photo"><img src="${survivor.image}" alt="${survivor.name}"></div>
                     <div class="survivor-info">
                         <h3>${survivor.name}</h3>
                         <div class="survivor-tagline">${survivor.tagline}</div>
@@ -1283,7 +1400,7 @@
         function showSurvivorStory(name) {
             const survivor = survivors.find(s => s.name === name);
             const modal = document.getElementById('survivorModal');
-            document.getElementById('survivorModalIcon').innerHTML = survivor.icon;
+            document.getElementById('survivorModalIcon').innerHTML = `<img src="${survivor.image}" alt="${survivor.name}">`;
             document.getElementById('survivorModalName').textContent = survivor.name;
             document.getElementById('survivorModalTagline').textContent = survivor.tagline;
             document.getElementById('survivorModalStory').textContent = survivor.story;
@@ -1303,37 +1420,13 @@
             modalName.textContent = product.name;
             modalContent.innerHTML = `
                 <div style="text-align: center; margin-bottom: 2rem;">
-                    <div style="font-size: 6rem; margin-bottom: 1rem;">${product.icon}</div>
+                    <img src="${product.image}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 1rem;">
                     <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
                     <p style="color: var(--text-light); margin-top: 1rem;">${product.description}</p>
                     <div class="product-price" style="margin-top: 1rem;">$${product.price.toFixed(2)}</div>
                 </div>
 
                 <div class="product-customization">
-                    <div class="customization-group">
-                        <label>Select Packaging:</label>
-                        <select id="packaging-${productId}">
-                            ${packagingOptions.map(pkg => `
-                                <option value="${pkg.name}" data-price="${pkg.price}">
-                                    ${pkg.name}${pkg.price > 0 ? ` (+$${pkg.price.toFixed(2)})` : ''}
-                                </option>
-                            `).join('')}
-                        </select>
-                    </div>
-
-                    <div class="customization-group">
-                        <label>Add Charms (optional):</label>
-                        <div class="charm-options">
-                            ${charmOptions.map(charm => `
-                                <div class="charm-option" onclick="toggleCharm(this, '${charm.name}', ${charm.price})">
-                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${charm.icon}</div>
-                                    <div style="font-size: 0.8rem;">${charm.name}</div>
-                                    <div style="font-size: 0.9rem; font-weight: 600; margin-top: 0.3rem;">+$${charm.price.toFixed(2)}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-
                     <div class="customization-group">
                         <label>Quantity:</label>
                         <div style="display: flex; gap: 1rem; align-items: center;">
@@ -1358,40 +1451,32 @@
         }
 
         let modalQty = 1;
-        let selectedCharms = [];
 
         function changeModalQty(delta) {
             modalQty = Math.max(1, modalQty + delta);
             document.getElementById('modal-qty').textContent = modalQty;
         }
 
-        function toggleCharm(element, charmName, price) {
-            element.classList.toggle('selected');
-            const index = selectedCharms.findIndex(c => c.name === charmName);
-            if (index > -1) {
-                selectedCharms.splice(index, 1);
-            } else {
-                selectedCharms.push({ name: charmName, price: price });
-            }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
 
         function addCustomizedToCart(productId) {
             const product = products.find(p => p.id === productId);
-            const packaging = document.getElementById(`packaging-${productId}`);
-            const selectedOption = packaging.options[packaging.selectedIndex];
-            const packagingPrice = parseFloat(selectedOption.dataset.price);
-
-            const charmTotal = selectedCharms.reduce((sum, charm) => sum + charm.price, 0);
-            const totalPrice = (product.price + packagingPrice + charmTotal) * modalQty;
+            const totalPrice = product.price * modalQty;
 
             const cartItem = {
                 id: Date.now(),
                 productId: product.id,
                 name: product.name,
                 icon: product.icon,
+                image: product.image,
                 basePrice: product.price,
-                packaging: selectedOption.value,
-                charms: [...selectedCharms],
                 quantity: modalQty,
                 totalPrice: totalPrice
             };
@@ -1402,9 +1487,9 @@
             
             // Reset selections
             modalQty = 1;
-            selectedCharms = [];
             
-            alert('Added to cart!');
+            saveCart();
+            showToast('Added to cart!');
         }
 
         function addBundleToCart(bundleName, price) {
@@ -1419,7 +1504,8 @@
             };
             cart.push(cartItem);
             updateCart();
-            alert('Bundle added to cart!');
+            saveCart();
+            showToast('Bundle added to cart!');
         }
 
         function updateCart() {
@@ -1441,22 +1527,16 @@
             }
 
             const subtotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-            const discount = firstPurchase ? subtotal * 0.1 : 0;
+            const discount = appliedPromo ? subtotal * 0.1 : 0;
             const total = subtotal - discount;
 
             cartItemsContainer.innerHTML = `
                 <div class="cart-items">
                     ${cart.map(item => `
                         <div class="cart-item">
-                            <div class="cart-item-image">${item.icon}</div>
+                            <div class="cart-item-image">${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">` : item.icon}</div>
                             <div class="cart-item-info">
                                 <div class="cart-item-name">${item.name}</div>
-                                ${!item.isBundle ? `
-                                    <div class="cart-item-options">
-                                        ${item.packaging ? `Packaging: ${item.packaging}<br>` : ''}
-                                        ${item.charms && item.charms.length > 0 ? `Charms: ${item.charms.map(c => c.name).join(', ')}` : ''}
-                                    </div>
-                                ` : ''}
                                 <div class="cart-item-quantity">
                                     <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)">-</button>
                                     <span>${item.quantity}</span>
@@ -1470,20 +1550,76 @@
                 </div>
 
                 <div class="cart-summary">
+                    <div class="packaging-options" style="margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--primary-color);">Packaging Options</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="radio" name="packaging" value="standard" ${selectedPackaging === 'standard' ? 'checked' : ''} onchange="updatePackaging('standard')" style="margin-right: 0.5rem;">
+                                <div>
+                                    <strong>Standard: Red Velvet Pouch - Free</strong><br>
+                                    <small style="color: #666;">Red velvet with double drawstring 3"x4"</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="radio" name="packaging" value="premium" ${selectedPackaging === 'premium' ? 'checked' : ''} onchange="updatePackaging('premium')" style="margin-right: 0.5rem;">
+                                <div>
+                                    <strong>Premium: Travel Storage Case - $20</strong><br>
+                                    <small style="color: #666;">Red velvet, faux leather, & polyurethane with multiple storage compartments 10"x10"x5"</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="shipping-options" style="margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--primary-color);">Shipping Options</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="radio" name="shipping" value="central" ${selectedShipping === 'central' ? 'checked' : ''} onchange="updateShipping('central')" style="margin-right: 0.5rem;">
+                                <div>
+                                    <strong>Central Location: 510 Lake St, Pewaukee (High School Office)</strong><br>
+                                    <small style="color: #666;">Free pickup</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="radio" name="shipping" value="home" ${selectedShipping === 'home' ? 'checked' : ''} onchange="updateShipping('home')" style="margin-right: 0.5rem;">
+                                <div>
+                                    <strong>Home Address: Additional Upcharge of $5</strong><br>
+                                    <small style="color: #666;">Home delivery</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                         <span>Subtotal:</span>
                         <span>$${subtotal.toFixed(2)}</span>
                     </div>
-                    ${firstPurchase ? `
-                        <div class="first-purchase-discount">
-                            <span><i class="fas fa-gift"></i></span>
-                            <span>First Purchase Discount (10%):</span>
+                    ${selectedPackaging === 'premium' ? `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Premium Packaging:</span>
+                            <span>$20.00</span>
+                        </div>
+                    ` : ''}
+                    ${selectedShipping === 'home' ? `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Home Delivery:</span>
+                            <span>$5.00</span>
+                        </div>
+                    ` : ''}
+                    <div class="promo-section" style="margin: 1rem 0;">
+                        <input type="text" id="promoCodeInput" placeholder="Enter promo code" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; margin-right: 0.5rem;">
+                        <button onclick="applyPromoCode()" style="padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Apply</button>
+                    </div>
+                    ${appliedPromo ? `
+                        <div class="promo-discount">
+                            <span><i class="fas fa-tag"></i></span>
+                            <span>Promo Code BCUDONO10 (10%):</span>
                             <span style="margin-left: auto; font-weight: 600;">-$${discount.toFixed(2)}</span>
                         </div>
                     ` : ''}
                     <div class="cart-total">
                         <span>Total:</span>
-                        <span>$${total.toFixed(2)}</span>
+                        <span>$${(total + (selectedPackaging === 'premium' ? 20 : 0) + (selectedShipping === 'home' ? 5 : 0)).toFixed(2)}</span>
                     </div>
                 </div>
 
@@ -1508,6 +1644,7 @@
                         (item.packaging ? packagingOptions.find(p => p.name === item.packaging).price : 0) +
                         (item.charms ? item.charms.reduce((sum, c) => sum + c.price, 0) : 0)) * newQty;
                     updateCart();
+                    saveCart();
                 }
             }
         }
@@ -1515,6 +1652,7 @@
         function removeFromCart(itemId) {
             cart = cart.filter(item => item.id !== itemId);
             updateCart();
+            saveCart();
         }
 
         function toggleCart() {
@@ -1522,10 +1660,36 @@
             modal.classList.toggle('active');
         }
 
+        function applyPromoCode() {
+            const code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+            if (code === "BCUDONO10") {
+                appliedPromo = true;
+                showToast("Promo code applied! 10% off your order.");
+                updateCart();
+                saveCart();
+            } else {
+                showToast("Invalid promo code.");
+            }
+        }
+
+        function updatePackaging(option) {
+            selectedPackaging = option;
+            updateCart();
+            saveCart();
+        }
+
+        function updateShipping(option) {
+            selectedShipping = option;
+            updateCart();
+            saveCart();
+        }
+
         function checkout(method) {
-            const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-            const discount = firstPurchase ? total * 0.1 : 0;
-            const finalTotal = total - discount;
+            const subtotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            const discount = appliedPromo ? subtotal * 0.1 : 0;
+            const packagingCost = selectedPackaging === 'premium' ? 20 : 0;
+            const shippingCost = selectedShipping === 'home' ? 5 : 0;
+            const finalTotal = subtotal - discount + packagingCost + shippingCost;
 
             let receipt = `THE CURE COLLECTION\n`;
             receipt += `================================\n\n`;
@@ -1535,20 +1699,24 @@
             
             cart.forEach(item => {
                 receipt += `${item.name} x${item.quantity}\n`;
-                if (item.packaging) receipt += `  Packaging: ${item.packaging}\n`;
-                if (item.charms && item.charms.length > 0) {
-                    receipt += `  Charms: ${item.charms.map(c => c.name).join(', ')}\n`;
-                }
                 receipt += `  $${item.totalPrice.toFixed(2)}\n\n`;
             });
 
             receipt += `--------------------------------\n`;
-            receipt += `Subtotal: $${total.toFixed(2)}\n`;
-            if (firstPurchase) {
-                receipt += `First Purchase Discount (10%): -$${discount.toFixed(2)}\n`;
+            receipt += `Subtotal: $${subtotal.toFixed(2)}\n`;
+            if (packagingCost > 0) {
+                receipt += `Premium Packaging: $${packagingCost.toFixed(2)}\n`;
+            }
+            if (shippingCost > 0) {
+                receipt += `Home Delivery: $${shippingCost.toFixed(2)}\n`;
+            }
+            if (appliedPromo) {
+                receipt += `Promo Code BCUDONO10 (10%): -$${discount.toFixed(2)}\n`;
             }
             receipt += `TOTAL: $${finalTotal.toFixed(2)}\n`;
             receipt += `================================\n\n`;
+            receipt += `Packaging: ${selectedPackaging === 'premium' ? 'Premium Travel Storage Case' : 'Standard Red Velvet Pouch'}\n`;
+            receipt += `Shipping: ${selectedShipping === 'home' ? 'Home Address' : 'Central Location (510 Lake St, Pewaukee)'}\n\n`;
             receipt += `Payment Method: ${method.toUpperCase()}\n`;
             
             if (method === 'venmo') {
@@ -1571,7 +1739,8 @@
 
             // Clear cart
             cart = [];
-            firstPurchase = false;
+            appliedPromo = false;
+            saveCart();
             updateCart();
             toggleCart();
         }
@@ -1602,8 +1771,42 @@
             hamburger.classList.remove('active');
         }
 
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('appliedPromo', appliedPromo);
+            localStorage.setItem('selectedPackaging', selectedPackaging);
+            localStorage.setItem('selectedShipping', selectedShipping);
+        }
+
+        function loadCart() {
+            try {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                }
+                const savedPromo = localStorage.getItem('appliedPromo');
+                if (savedPromo !== null) {
+                    appliedPromo = JSON.parse(savedPromo);
+                }
+                const savedPackaging = localStorage.getItem('selectedPackaging');
+                if (savedPackaging) {
+                    selectedPackaging = savedPackaging;
+                }
+                const savedShipping = localStorage.getItem('selectedShipping');
+                if (savedShipping) {
+                    selectedShipping = savedShipping;
+                }
+            } catch (e) {
+                console.error('Error loading cart from localStorage:', e);
+                // Reset to defaults
+                cart = [];
+                appliedPromo = false;
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
             loadProducts();
             loadSurvivors();
             updateCart();
@@ -1637,5 +1840,8 @@
             }
         });
     </script>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 </body>
 </html>
