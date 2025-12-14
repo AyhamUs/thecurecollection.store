@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="100%" height="100%" fill="#fff5f5"/>
+  <g transform="translate(50,50)">
+    <rect x="0" y="0" width="700" height="500" rx="18" fill="#ffecec" stroke="#8b0000" stroke-width="6"/>
+    <text x="350" y="260" font-family="Poppins, sans-serif" font-size="36" fill="#8b0000" text-anchor="middle">Bangle Placeholder</text>
+    <text x="350" y="310" font-family="Poppins, sans-serif" font-size="18" fill="#8b0000" text-anchor="middle">$6 each • 5 for $20</text>
+  </g>
+</svg>
