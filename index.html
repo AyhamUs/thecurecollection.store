@@ -132,6 +132,7 @@
             position: relative;
             cursor: pointer;
             font-size: 1.5rem;
+            z-index: 1300;
         }
 
         .cart-count {
@@ -154,6 +155,7 @@
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
+            z-index: 1300;
         }
 
         .hamburger span {
@@ -898,7 +900,7 @@
                 position: fixed;
                 top: 111px;
                 right: -100%;
-                width: 250px;
+                width: 260px;
                 height: calc(100vh - 111px);
                 background: white;
                 flex-direction: column;
@@ -907,7 +909,7 @@
                 transition: right 0.3s;
                 gap: 1.5rem;
                 align-items: flex-start;
-                z-index: 999;
+                z-index: 1200;
             }
 
             .nav-links.active {
@@ -964,10 +966,53 @@
             }
         }
 
+        /* Checkout modal form styling: target left column only */
+        #checkoutModal .product-modal-content .checkout-left input,
+        #checkoutModal .product-modal-content .checkout-left textarea,
+        #checkoutModal .product-modal-content .checkout-left select {
+            width: 100% !important;
+            padding: 0.75rem !important;
+            border-radius: 10px !important;
+            border: 1px solid #e6e6e6 !important;
+            font-size: 1rem !important;
+            box-shadow: none !important;
+            margin-bottom: 8px !important;
+        }
+
+        /* Address row layout: city + state */
+        #checkoutModal .product-modal-content .address-row { display:flex; gap:0.5rem; margin-bottom:8px; }
+        #checkoutModal .product-modal-content .address-row .city { flex:3; min-width:0; }
+        #checkoutModal .product-modal-content .address-row .state { width:120px; flex:0 0 120px; }
+
+        /* ZIP and country row */
+        #checkoutModal .product-modal-content .zip-row { display:flex; gap:0.5rem; margin-bottom:8px; }
+        #checkoutModal .product-modal-content .zip-row .zip { width:120px; flex:0 0 120px; }
+        #checkoutModal .product-modal-content .zip-row .country { flex:1; min-width:0; }
+
+        #checkoutModal .product-modal-content label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        #checkoutModal .checkout-btn { width: 100%; }
+
+        /* Make checkout modal stack vertically on small screens */
+        @media (max-width: 768px) {
+            #checkoutModal .product-modal-content > div { flex-direction: column !important; }
+            #checkoutModal .product-modal-content > div [style*="width:360px"] { width: 100% !important; }
+            #checkoutModal .product-modal-content { padding: 16px; }
+        }
+
         @media (max-width: 480px) {
             .nav-container {
                 padding: 0 1rem;
             }
+
+            /* Ensure header items are visible and not clipped */
+            nav { overflow: visible; }
+            .nav-right { gap: 1rem; }
+            .cart-icon { font-size: 1.4rem; }
 
             .hero {
                 padding: 4rem 1rem;
@@ -988,6 +1033,53 @@
             .video-section h2 {
                 font-size: 1.8rem;
             }
+        }
+
+        /* On small screens the announcement banner and nav can conflict when both are fixed.
+           Make them flow naturally (non-fixed) on small devices to avoid overlap and clipping. */
+        @media (max-width: 768px) {
+            .announcement-banner {
+                position: relative;
+                top: 0;
+                box-shadow: none;
+            }
+            nav {
+                position: relative;
+                top: 0;
+                box-shadow: none;
+            }
+            .hero { margin-top: 0; }
+            /* Ensure mobile nav overlay anchors to the top of the viewport when opened */
+            .nav-links { top: 0 !important; height: 100vh !important; }
+        }
+
+        /* Additional responsiveness: make grids and modals adapt smoothly */
+        @media (max-width: 768px) {
+            .products-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+            .product-card { border-radius: 12px; padding: 0; }
+            .product-image { height: 180px; }
+            .product-info { padding: 1rem; }
+            .bundle-card img { height: 120px; }
+            .bundles-grid { grid-template-columns: 1fr; }
+            .cart-content { width: 95%; max-width: 720px; }
+            .cart-modal .cart-content { max-height: 85vh; }
+            .product-modal-content { max-width: 95%; padding: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+            .product-image { height: 140px; }
+            .product-info { padding: 0.75rem; }
+            .product-price { font-size: 1.1rem; }
+            .bundle-card img { height: 100px; }
+            .nav-container { padding: 0 0.75rem; }
+            nav { top: 54px; }
+            .cart-content { width: 96%; max-width: 680px; padding: 12px; }
+            .product-modal-content { padding: 12px; }
+            .cart-item { padding: 0.5rem; }
+            .cart-item-image { width: 60px; height: 60px; }
+            .checkout-left input, .checkout-left select, .checkout-left textarea { font-size: 0.95rem !important; }
+            .announcement-banner { font-size: 0.9rem; padding: 0.6rem 1rem; }
         }
     </style>
 </head>
@@ -1173,6 +1265,79 @@
         </div>
     </div>
 
+    <!-- Checkout Modal -->
+    <div class="product-modal" id="checkoutModal">
+        <div class="product-modal-content">
+            <div class="product-modal-header">
+                <h2>Checkout</h2>
+                <button class="close-modal" onclick="document.getElementById('checkoutModal').classList.remove('active')">×</button>
+            </div>
+            <div style="display:flex; gap:1.5rem; flex-direction:row; align-items:flex-start;">
+                <!-- Left: Customer form -->
+                <div class="checkout-left" style="flex:1; min-width:260px;">
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Full name</label>
+                    <input id="checkout-name" placeholder="Full name" style="width:100%; padding:0.6rem; margin-bottom:8px;" />
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Email (required)</label>
+                    <input id="checkout-email" placeholder="Email (required)" style="width:100%; padding:0.6rem; margin-bottom:8px;" />
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Phone (optional)</label>
+                    <input id="checkout-phone" placeholder="Phone (optional)" style="width:100%; padding:0.6rem; margin-bottom:8px;" />
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Address Line 1</label>
+                    <input id="checkout-address-line1" placeholder="Street address" style="width:100%; padding:0.6rem; margin-bottom:8px;" />
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Address Line 2 (optional)</label>
+                    <input id="checkout-address-line2" placeholder="Apt, suite, unit (optional)" style="width:100%; padding:0.6rem; margin-bottom:8px;" />
+                    <div class="address-row">
+                        <div style="flex:1; min-width:0;">
+                            <label style="font-weight:600; margin-bottom:6px; display:block;">City</label>
+                            <input id="checkout-city" class="city" placeholder="City" style="width:100%; padding:0.6rem;" />
+                        </div>
+                        <div style="width:120px;">
+                            <label style="font-weight:600; margin-bottom:6px; display:block;">State</label>
+                            <select id="checkout-state" class="state" style="width:100%; padding:0.6rem;">
+                                <option value="WI">Wisconsin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="zip-row">
+                        <div style="width:120px;">
+                            <label style="font-weight:600; margin-bottom:6px; display:block;">ZIP</label>
+                            <input id="checkout-zip" class="zip" placeholder="ZIP" style="width:100%; padding:0.6rem;" />
+                        </div>
+                        <div style="flex:1; min-width:0;">
+                            <label style="font-weight:600; margin-bottom:6px; display:block;">Country</label>
+                            <input id="checkout-country" class="country" placeholder="Country" value="USA" style="width:100%; padding:0.6rem;" />
+                        </div>
+                    </div>
+                    <label style="font-weight:600; margin-bottom:6px; display:block;">Notes (optional)</label>
+                    <textarea id="checkout-notes" placeholder="Notes (optional)" style="width:100%; min-height:80px; padding:0.6rem; margin-bottom:8px;"></textarea>
+                    <div id="checkout-feedback" style="min-height:20px; font-weight:600; margin-bottom:8px;"></div>
+                    <div style="display:flex; gap:0.5rem; justify-content:flex-end;">
+                        <button class="btn btn-secondary" onclick="document.getElementById('checkoutModal').classList.remove('active')">Cancel</button>
+                        <button id="checkout-place-btn" class="btn btn-primary" onclick="submitOrder()">Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Right: Order summary -->
+                <div style="width:360px; background:#fafafa; padding:12px; border-radius:10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <div><strong>Payment</strong></div>
+                        <div id="checkout-payment-display" class="muted"></div>
+                    </div>
+                    <div style="margin-bottom:8px;">
+                        <strong>Items</strong>
+                        <div id="checkout-order-summary" style="max-height:240px; overflow:auto; margin-top:6px;"></div>
+                    </div>
+                    <div style="border-top:1px solid #eee; padding-top:8px; margin-top:8px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Subtotal</span><span id="checkout-subtotal">$0.00</span></div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Packaging</span><span id="checkout-packaging-display">Standard</span></div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Shipping</span><span id="checkout-shipping-display">Central (Free)</span></div>
+                        <div style="display:flex; justify-content:space-between; margin-top:8px; font-weight:700; font-size:16px;"><span>Total</span><span id="checkout-total">$0.00</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script defer>
         // Product Database
         const products = [
@@ -1296,6 +1461,20 @@
                 image: "products/Melanie Heart Adjustable Ring.png",
                 type: "ring"
             }
+            ,
+            {
+                id: 13,
+                name: "Bangle Bracelets",
+                survivor: "Blood Cancer Survivors",
+                description: "Classic bangle bracelets. $6 each or 5 for $20. Choose which bracelet (1-5).",
+                priceSingle: 6.00,
+                priceFive: 20.00,
+                price: 6.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/banglebracelets.jpeg",
+                type: "bracelet",
+                isBangle: true
+            }
         ];
 
         // Survivors Database
@@ -1355,6 +1534,9 @@
             { name: "Standard Box", price: 0 },
             { name: "Premium Gift Box", price: 5.99 }
         ];
+
+        // Configure this to your deployed Apps Script Web App URL
+        const ORDER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzVQOZt9yCw2VetyI82JoM7alQOXAdP5mx7riQSuzSEO7YH8xW7hABRzCh8kZCHRwrE/exec';
 
         // Cart management
         let cart = [];
@@ -1418,7 +1600,42 @@
             const modalContent = document.getElementById('modalProductContent');
 
             modalName.textContent = product.name;
-            modalContent.innerHTML = `
+            // track which product is shown and reset quantity
+            currentModalProductId = productId;
+            modalQty = 1;
+            if (product.isBangle) {
+                modalContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <img src="${product.image}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 1rem;">
+                    <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
+                    <p style="color: var(--text-light); margin-top: 1rem;">${product.description}</p>
+                    <div class="product-price" style="margin-top: 1rem;">$${product.priceSingle.toFixed(2)} each · 5 for $${product.priceFive.toFixed(2)}</div>
+                </div>
+
+                <div class="product-customization">
+                    <div class="customization-group">
+                        <label>Quantity:</label>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
+                            <span id="modal-qty" style="font-size: 1.2rem; font-weight: 600;">1</span>
+                            <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+                        </div>
+                        <small style="display: block; margin-top: 0.5rem; color: #666;">Bundle pricing applies automatically (e.g., 6 = 5-for-$20 + $6).</small>
+                    </div>
+
+                    <div class="customization-group">
+                        <label>Select bracelet choices:</label>
+                        <div id="modal-customization-container"></div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 2rem;" 
+                        onclick="addCustomizedToCart(${productId})">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+            } else {
+                modalContent.innerHTML = `
                 <div style="text-align: center; margin-bottom: 2rem;">
                     <img src="${product.image}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 1rem;">
                     <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
@@ -1442,8 +1659,10 @@
                     </button>
                 </div>
             `;
-
+            }
             modal.classList.add('active');
+            // if bangle product, render initial selector(s)
+            if (product.isBangle) renderBangleCustomizationSelectors(modalQty);
         }
 
         function closeProductModal() {
@@ -1451,10 +1670,41 @@
         }
 
         let modalQty = 1;
+        let currentModalProductId = null;
 
         function changeModalQty(delta) {
             modalQty = Math.max(1, modalQty + delta);
-            document.getElementById('modal-qty').textContent = modalQty;
+            const qtyEl = document.getElementById('modal-qty');
+            if (qtyEl) qtyEl.textContent = modalQty;
+            // If the current product in modal is a bangle, re-render the select fields
+            if (currentModalProductId) {
+                const prod = products.find(p => p.id === currentModalProductId);
+                if (prod && prod.isBangle) {
+                    renderBangleCustomizationSelectors(modalQty);
+                }
+            }
+        }
+
+        function renderBangleCustomizationSelectors(count) {
+            const container = document.getElementById('modal-customization-container');
+            if (!container) return;
+            let html = '';
+            for (let i = 1; i <= count; i++) {
+                html += `
+                    <div style="margin-bottom:0.5rem;">
+                        <label style="font-weight:600;">Choice ${i}:</label>
+                        <select class="modal-customization-select" id="modal-customization-${i}" style="width:100%; padding:0.5rem; border-radius:6px; margin-top:0.25rem;">
+                            <option value="">Any / Random</option>
+                            <option value="1">Bracelet 1</option>
+                            <option value="2">Bracelet 2</option>
+                            <option value="3">Bracelet 3</option>
+                            <option value="4">Bracelet 4</option>
+                            <option value="5">Bracelet 5</option>
+                        </select>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
         }
 
         function showToast(message) {
@@ -1468,7 +1718,25 @@
 
         function addCustomizedToCart(productId) {
             const product = products.find(p => p.id === productId);
-            const totalPrice = product.price * modalQty;
+            let totalPrice = 0;
+            let customization = '';
+
+            if (product.isBangle) {
+                const count = modalQty;
+                const fives = Math.floor(count / 5);
+                const singles = count % 5;
+                totalPrice = (fives * product.priceFive) + (singles * product.priceSingle);
+
+                const selects = Array.from(document.querySelectorAll('.modal-customization-select'));
+                if (selects.length) {
+                    customization = selects.map(s => s.value || '').join(', ');
+                } else {
+                    const sel = document.getElementById('modal-customization');
+                    if (sel) customization = sel.value || '';
+                }
+            } else {
+                totalPrice = product.price * modalQty;
+            }
 
             const cartItem = {
                 id: Date.now(),
@@ -1476,9 +1744,10 @@
                 name: product.name,
                 icon: product.icon,
                 image: product.image,
-                basePrice: product.price,
+                basePrice: product.price || product.priceSingle || 0,
                 quantity: modalQty,
-                totalPrice: totalPrice
+                totalPrice: totalPrice,
+                customization: customization
             };
 
             cart.push(cartItem);
@@ -1537,6 +1806,7 @@
                             <div class="cart-item-image">${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">` : item.icon}</div>
                             <div class="cart-item-info">
                                 <div class="cart-item-name">${item.name}</div>
+                                ${item.customization && item.customization.length ? `<div class="cart-item-options">Options: ${item.customization}</div>` : ''}
                                 <div class="cart-item-quantity">
                                     <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)">-</button>
                                     <span>${item.quantity}</span>
@@ -1624,14 +1894,32 @@
                 </div>
 
                 <div class="checkout-buttons">
-                    <button class="checkout-btn venmo-btn" onclick="checkout('venmo')">
+                    <button id="checkout-btn-venmo" class="checkout-btn venmo-btn" type="button">
                         <i class="fas fa-credit-card"></i> Pay with Venmo
                     </button>
-                    <button class="checkout-btn cash-btn" onclick="checkout('cash')">
+                    <div style="margin-top:6px; font-size:0.9rem; color:#666; text-align:center;">Instructions for completing Venmo payment will be emailed to you after placing the order.</div>
+                    <button id="checkout-btn-cash" class="checkout-btn cash-btn" type="button">
                         <i class="fas fa-money-bill-wave"></i> Cash Payment
                     </button>
                 </div>
             `;
+
+            // Attach event listeners to checkout buttons (more reliable than inline onclick for dynamically generated HTML)
+            try {
+                const venmoBtn = cartItemsContainer.querySelector('#checkout-btn-venmo') || cartItemsContainer.querySelector('.checkout-btn.venmo-btn');
+                const cashBtn = cartItemsContainer.querySelector('#checkout-btn-cash') || cartItemsContainer.querySelector('.checkout-btn.cash-btn');
+                if (venmoBtn) {
+                    if (venmoBtn._listener) venmoBtn.removeEventListener('click', venmoBtn._listener);
+                    venmoBtn._listener = function(e){ e.stopPropagation(); checkout('venmo'); };
+                    venmoBtn.addEventListener('click', venmoBtn._listener);
+                }
+                if (cashBtn) {
+                    if (cashBtn._listener) cashBtn.removeEventListener('click', cashBtn._listener);
+                    cashBtn._listener = function(e){ e.stopPropagation(); checkout('cash'); };
+                    cashBtn.addEventListener('click', cashBtn._listener);
+                }
+            } catch (e) { console.error('attach checkout listeners error', e); }
+
         }
 
         function updateItemQty(itemId, delta) {
@@ -1684,65 +1972,192 @@
             saveCart();
         }
 
+        // pending payment method while checkout modal is open
+        let pendingPaymentMethod = null;
+
         function checkout(method) {
+            if (!ORDER_ENDPOINT || ORDER_ENDPOINT === 'REPLACE_WITH_YOUR_WEB_APP_URL') {
+                showToast('Order endpoint not configured. Please set ORDER_ENDPOINT.');
+                return;
+            }
+
+            if (!cart || cart.length === 0) {
+                showToast('Your cart is empty.');
+                return;
+            }
+
+            // open checkout modal and populate
+            pendingPaymentMethod = method;
+            const modal = document.getElementById('checkoutModal');
+            const nameInput = document.getElementById('checkout-name');
+            const emailInput = document.getElementById('checkout-email');
+            const phoneInput = document.getElementById('checkout-phone');
+            const paymentDisplay = document.getElementById('checkout-payment-display');
+            const notesInput = document.getElementById('checkout-notes');
+
+            // prefill from localStorage if available
+            const savedName = localStorage.getItem('checkout_name') || '';
+            const savedEmail = localStorage.getItem('checkout_email') || '';
+            const savedPhone = localStorage.getItem('checkout_phone') || '';
+            const savedAddress1 = localStorage.getItem('checkout_address_line1') || '';
+            const savedAddress2 = localStorage.getItem('checkout_address_line2') || '';
+            const savedCity = localStorage.getItem('checkout_city') || '';
+            const savedState = localStorage.getItem('checkout_state') || '';
+            const savedZip = localStorage.getItem('checkout_zip') || '';
+            const savedCountry = localStorage.getItem('checkout_country') || 'USA';
+            nameInput.value = savedName;
+            emailInput.value = savedEmail;
+            phoneInput.value = savedPhone;
+            document.getElementById('checkout-address-line1').value = savedAddress1;
+            document.getElementById('checkout-address-line2').value = savedAddress2;
+            document.getElementById('checkout-city').value = savedCity;
+            document.getElementById('checkout-state').value = savedState;
+            document.getElementById('checkout-zip').value = savedZip;
+            document.getElementById('checkout-country').value = savedCountry;
+            notesInput.value = '';
+            paymentDisplay.textContent = method.toUpperCase();
+
+            // render order summary inside modal and populate packaging/shipping/total
+            const summary = document.getElementById('checkout-order-summary');
+            const subtotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            summary.innerHTML = `
+                ${cart.map(i => `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><div><strong style="display:block">${i.name}</strong>${i.customization? '<div class="muted">'+i.customization+'</div>' : ''}<div class="muted">Qty: ${i.quantity}</div></div><div style="text-align:right;">$${i.totalPrice.toFixed(2)}</div></div>`).join('')}
+            `;
+
+            document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('checkout-packaging-display').textContent = selectedPackaging === 'premium' ? 'Premium ($20)' : 'Standard (Free)';
+            document.getElementById('checkout-shipping-display').textContent = selectedShipping === 'home' ? 'Home ($5)' : 'Central (Free)';
+            const packagingCost = selectedPackaging === 'premium' ? 20 : 0;
+            const shippingCost = selectedShipping === 'home' ? 5 : 0;
+            const discount = appliedPromo ? subtotal * 0.1 : 0;
+            const finalTotal = subtotal - discount + packagingCost + shippingCost;
+            document.getElementById('checkout-total').textContent = `$${finalTotal.toFixed(2)}`;
+
+            // show payment method
+            document.getElementById('checkout-payment-display').textContent = method.toUpperCase();
+
+            // reset feedback and enable place button
+            document.getElementById('checkout-feedback').textContent = '';
+            const placeBtn = document.getElementById('checkout-place-btn');
+            placeBtn.disabled = false;
+            placeBtn.textContent = 'Place Order';
+
+            modal.classList.add('active');
+        }
+
+        async function submitOrder() {
+            const nameInput = document.getElementById('checkout-name');
+            const emailInput = document.getElementById('checkout-email');
+            const phoneInput = document.getElementById('checkout-phone');
+            const notesInput = document.getElementById('checkout-notes');
+            const feedback = document.getElementById('checkout-feedback');
+
+            const customerName = (nameInput.value || '').trim();
+            const customerEmail = (emailInput.value || '').trim();
+            const customerPhone = (phoneInput.value || '').trim();
+            const customerAddressLine1 = (document.getElementById('checkout-address-line1').value || '').trim();
+            const customerAddressLine2 = (document.getElementById('checkout-address-line2').value || '').trim();
+            const customerCity = (document.getElementById('checkout-city').value || '').trim();
+            const customerState = (document.getElementById('checkout-state').value || '').trim();
+            const customerZip = (document.getElementById('checkout-zip').value || '').trim();
+            const customerCountry = (document.getElementById('checkout-country').value || '').trim();
+            const notes = (notesInput.value || '').trim();
+
+            if (!customerEmail) {
+                feedback.textContent = 'Email is required.';
+                feedback.style.color = 'red';
+                return;
+            }
+
+            // save name/email locally for convenience
+            localStorage.setItem('checkout_name', customerName);
+            localStorage.setItem('checkout_email', customerEmail);
+            localStorage.setItem('checkout_phone', customerPhone);
+            localStorage.setItem('checkout_address_line1', customerAddressLine1);
+            localStorage.setItem('checkout_address_line2', customerAddressLine2);
+            localStorage.setItem('checkout_city', customerCity);
+            localStorage.setItem('checkout_state', customerState);
+            localStorage.setItem('checkout_zip', customerZip);
+            localStorage.setItem('checkout_country', customerCountry);
+
             const subtotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
             const discount = appliedPromo ? subtotal * 0.1 : 0;
             const packagingCost = selectedPackaging === 'premium' ? 20 : 0;
             const shippingCost = selectedShipping === 'home' ? 5 : 0;
             const finalTotal = subtotal - discount + packagingCost + shippingCost;
 
-            let receipt = `THE CURE COLLECTION\n`;
-            receipt += `================================\n\n`;
-            receipt += `ORDER SUMMARY\n`;
-            receipt += `Date: ${new Date().toLocaleDateString()}\n`;
-            receipt += `Time: ${new Date().toLocaleTimeString()}\n\n`;
-            
-            cart.forEach(item => {
-                receipt += `${item.name} x${item.quantity}\n`;
-                receipt += `  $${item.totalPrice.toFixed(2)}\n\n`;
-            });
+            const payload = {
+                name: customerName,
+                email: customerEmail,
+                phone: customerPhone,
+                address: {
+                    line1: customerAddressLine1,
+                    line2: customerAddressLine2,
+                    city: customerCity,
+                    state: customerState,
+                    zip: customerZip,
+                    country: customerCountry
+                },
+                cart: cart.map(i => ({ name: i.name, quantity: i.quantity, totalPrice: i.totalPrice, customization: i.customization || '' })),
+                appliedPromo: appliedPromo,
+                selectedPackaging: selectedPackaging,
+                selectedShipping: selectedShipping,
+                paymentMethod: pendingPaymentMethod,
+                notes: notes
+            };
 
-            receipt += `--------------------------------\n`;
-            receipt += `Subtotal: $${subtotal.toFixed(2)}\n`;
-            if (packagingCost > 0) {
-                receipt += `Premium Packaging: $${packagingCost.toFixed(2)}\n`;
-            }
-            if (shippingCost > 0) {
-                receipt += `Home Delivery: $${shippingCost.toFixed(2)}\n`;
-            }
-            if (appliedPromo) {
-                receipt += `Promo Code BCUDONO10 (10%): -$${discount.toFixed(2)}\n`;
-            }
-            receipt += `TOTAL: $${finalTotal.toFixed(2)}\n`;
-            receipt += `================================\n\n`;
-            receipt += `Packaging: ${selectedPackaging === 'premium' ? 'Premium Travel Storage Case' : 'Standard Red Velvet Pouch'}\n`;
-            receipt += `Shipping: ${selectedShipping === 'home' ? 'Home Address' : 'Central Location (510 Lake St, Pewaukee)'}\n\n`;
-            receipt += `Payment Method: ${method.toUpperCase()}\n`;
-            
-            if (method === 'venmo') {
-                receipt += `\nVenmo: @TheCureCollection\n`;
-                receipt += `Please include order ID in payment note\n`;
-            }
+            try {
+                // disable place button while submitting
+                const placeBtn = document.getElementById('checkout-place-btn');
+                placeBtn.disabled = true;
+                placeBtn.textContent = 'Processing...';
 
-            receipt += `\nThank you for supporting blood cancer warriors!\n`;
+                feedback.textContent = 'Submitting order...';
+                feedback.style.color = 'black';
+                const resp = await fetch(ORDER_ENDPOINT, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+                if (!data || !data.success) {
+                    console.error('Order submission failed:', data);
+                    feedback.textContent = 'Order failed to submit. Please try again.';
+                    feedback.style.color = 'red';
+                    placeBtn.disabled = false;
+                    placeBtn.textContent = 'Place Order';
+                    return;
+                }
 
-            alert(receipt);
+                const orderId = data.orderId || '(no id)';
 
-            if (confirm('Would you like to download your receipt?')) {
-                const blob = new Blob([receipt], { type: 'text/plain' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `TheCureCollection_Receipt_${Date.now()}.txt`;
-                a.click();
+                // replace modal content with confirmation screen (no download)
+                const modalContent = document.querySelector('#checkoutModal .product-modal-content');
+                modalContent.innerHTML = `
+                    <div style="padding: 1rem; text-align: center;">
+                        <h2 style="color: var(--primary-color);">Order Confirmed</h2>
+                        <p style="font-size:1rem;">Thank you — your order has been received.</p>
+                        <p style="margin-top:8px;">Order ID: <strong>${orderId}</strong></p>
+                        <p style="margin-top:8px;">A confirmation email has been sent to <strong id="confirmed-email"></strong>.</p>
+                        <div style="margin-top:16px;"><button class="btn btn-primary" onclick="document.getElementById('checkoutModal').classList.remove('active')">Close</button></div>
+                    </div>
+                `;
+                // safely insert email as text
+                const confirmedEmailEl = document.getElementById('confirmed-email');
+                if (confirmedEmailEl) confirmedEmailEl.textContent = customerEmail;
+
+                // clear cart client-side (already emailed)
+                cart = [];
+                appliedPromo = false;
+                saveCart();
+                updateCart();
+
+            } catch (err) {
+                console.error('Checkout error:', err);
+                feedback.textContent = 'An error occurred while submitting your order. Please try again.';
+                feedback.style.color = 'red';
+                const placeBtn = document.getElementById('checkout-place-btn');
+                if (placeBtn) { placeBtn.disabled = false; placeBtn.textContent = 'Place Order'; }
             }
-
-            // Clear cart
-            cart = [];
-            appliedPromo = false;
-            saveCart();
-            updateCart();
-            toggleCart();
         }
 
         // Smooth scrolling
