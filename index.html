@@ -1949,7 +1949,7 @@
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/banglebracelets.jpeg",
                 type: "bracelet",
-                customizationCount: 1
+                customizationCount: 5
             },
             {
                 id: 14,
@@ -2182,20 +2182,15 @@
             }
 
             let html = '';
+            // Determine how many distinct bracelet choices this product exposes (default to 5)
+            const prod = products.find(p => p.id === productId) || {};
+            const optionLimit = (prod.customizationCount && Number(prod.customizationCount) > 0) ? Number(prod.customizationCount) : 5;
             for (let i = 1; i <= count; i++) {
-                html += `
-                    <div style="margin-bottom:0.5rem;">
-                        <label style="font-weight:600;">Choice ${i}:</label>
-                        <select class="modal-customization-select" id="modal-customization-${i}" style="width:100%; padding:0.5rem; border-radius:6px; margin-top:0.25rem;">
-                            <option value="">Any / Random</option>
-                            <option value="1">Bracelet 1</option>
-                            <option value="2">Bracelet 2</option>
-                            <option value="3">Bracelet 3</option>
-                            <option value="4">Bracelet 4</option>
-                            <option value="5">Bracelet 5</option>
-                        </select>
-                    </div>
-                `;
+                html += `\n                    <div style="margin-bottom:0.5rem;">\n                        <label style="font-weight:600;">Choice ${i}:</label>\n                        <select class="modal-customization-select" id="modal-customization-${i}" style="width:100%; padding:0.5rem; border-radius:6px; margin-top:0.25rem;">\n                            <option value="">Any / Random</option>`;
+                for (let j = 1; j <= optionLimit; j++) {
+                    html += `\n                            <option value="${j}">Bracelet ${j}</option>`;
+                }
+                html += `\n                        </select>\n                    </div>`;
             }
             container.innerHTML = html;
         }
