@@ -26,6 +26,10 @@
             --success: #8b0000;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--text-dark);
@@ -181,23 +185,33 @@
         /* Hero Section */
         .hero {
             margin-top: 121px;
-            background: linear-gradient(135deg, #ffffff 0%, #ffebeb 100%);
-            padding: 6rem 2rem;
+            background: #ffffff;
+            padding: 8rem 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
             color: var(--secondary-color);
+            position: relative;
+            z-index: 1;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .hero p {
-            font-size: 1.3rem;
-            color: var(--text-light);
+            font-size: 1.4rem;
+            color: #555;
             max-width: 700px;
             margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
         }
 
 
@@ -223,14 +237,32 @@
         }
 
         .btn-primary {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #a00000);
             color: white;
+            box-shadow: 0 4px 15px rgba(139,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(212, 82, 110, 0.4);
+            background: linear-gradient(135deg, #a00000, #b82e2e);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139,0,0,0.4);
         }
 
         .btn-secondary {
@@ -246,11 +278,12 @@
 
         /* Christmas Deals Section */
         .christmas-deals {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #8b0000, #b22222, #dc143c);
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #8b0000 0%, #a52a2a 50%, #dc143c 100%);
             color: white;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .christmas-deals::before {
@@ -260,14 +293,36 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(255,255,255,0.1)" font-size="20" y="50%">❄</text></svg>') repeat;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 40%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(255,255,255,0.03)" font-size="20" y="50%">❄</text></svg>') repeat;
             pointer-events: none;
+            animation: snowDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes snowDrift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .christmas-deals h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .christmas-deals > p {
+            font-size: 1.2rem;
             margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             position: relative;
             z-index: 1;
         }
@@ -284,35 +339,121 @@
 
         .bundle-card {
             background: white;
-            padding: 2rem;
+            padding: 0;
             border-radius: 20px;
             color: var(--text-dark);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bundle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(139,0,0,0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .bundle-card:hover::before {
+            opacity: 1;
         }
 
         .bundle-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(139,0,0,0.3);
+        }
+
+        .bundle-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #ffebeb, #ffe5e5);
+        }
+
+        .bundle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bundle-card:hover .bundle-image img {
+            transform: scale(1.1);
+        }
+
+        .bundle-content {
+            padding: 2rem;
         }
 
         .bundle-card h3 {
             color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .bundle-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, #8b0000, #c41e3a);
+            color: white;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #d4af37, #f4c430);
+            color: #2c2c2c;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
 
         .bundle-price {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--secondary-color);
-            margin: 1rem 0;
+            margin: 1.25rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
 
         .original-price {
             text-decoration: line-through;
-            color: var(--text-light);
-            font-size: 1.2rem;
+            color: #999;
+            font-size: 1.3rem;
+            font-weight: 500;
         }
 
         /* Video Section */
@@ -339,9 +480,10 @@
 
         /* Featured Products */
         .featured-products {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
+            background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
         }
 
         .section-header {
@@ -351,9 +493,24 @@
 
         .section-header h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--secondary-color);
             margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            border-radius: 2px;
         }
 
         .products-grid {
@@ -366,59 +523,92 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139,0,0,0.05), rgba(178,34,34,0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.2);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
         }
 
         .product-image {
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
+            background: linear-gradient(135deg, #ffebeb, #ffe5e5);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
             color: var(--primary-color);
             overflow: hidden;
+            position: relative;
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
         }
 
         .product-info {
-            padding: 1.5rem;
+            padding: 1.75rem;
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
         }
 
         .survivor-name {
             color: var(--primary-color);
             font-weight: 600;
             margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .product-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #2c3e50;
+            line-height: 1.3;
         }
 
         .product-description {
-            color: var(--text-light);
+            color: #666;
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         .product-footer {
@@ -435,32 +625,68 @@
         }
 
         .add-to-cart-btn {
-            padding: 0.7rem 1.5rem;
-            background: var(--primary-color);
+            padding: 0.75rem 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color), #a00000);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(139,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .add-to-cart-btn:hover::before {
+            left: 100%;
         }
 
         .add-to-cart-btn:hover {
-            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139,0,0,0.4);
         }
 
         /* Donation Section */
         .donation-section {
-            padding: 4rem 2rem;
-            background: var(--primary-color);
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #8b0000 0%, #a00000 50%, #b22222 100%);
             color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .donation-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 3rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .donation-cards {
@@ -472,20 +698,42 @@
         }
 
         .donation-card {
-            background: rgba(255,255,255,0.95);
-            padding: 2rem;
+            background: rgba(255,255,255,0.98);
+            padding: 2.5rem;
             border-radius: 20px;
             color: var(--text-dark);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .donation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), #dc143c);
+        }
+
+        .donation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
         }
 
         .donation-card h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
         .donation-card p {
             margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: #555;
         }
 
         /* Shopping Cart Modal */
@@ -535,85 +783,183 @@
         }
 
         .cart-items {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .cart-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .cart-items::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .cart-items::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
         }
 
         .cart-item {
             display: flex;
             gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid var(--card-bg);
+            padding: 1.25rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
         }
 
         .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #ffebeb, #ffe0e0);
-            border-radius: 10px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffebeb, #ffe5e5);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-color);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .cart-item-info {
             flex: 1;
+            min-width: 0;
         }
 
         .cart-item-name {
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            color: #2c3e50;
+            line-height: 1.3;
         }
 
         .cart-item-options {
-            font-size: 0.9rem;
-            color: var(--text-light);
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
         }
 
         .cart-item-quantity {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             align-items: center;
             margin-top: 0.5rem;
         }
 
         .qty-btn {
-            background: var(--card-bg);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
+            color: #2c3e50;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cart-item-quantity span {
+            min-width: 25px;
+            text-align: center;
+            font-weight: 600;
+            color: #2c3e50;
         }
 
         .cart-item-price {
             font-weight: 700;
             color: var(--secondary-color);
+            font-size: 1.1rem;
+            white-space: nowrap;
+            margin: 0 0.75rem;
         }
 
         .remove-item {
             cursor: pointer;
-            color: var(--primary-color);
+            color: #e74c3c;
             border: none;
-            background: none;
-            font-size: 1.2rem;
+            background: #fee;
+            font-size: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .remove-item:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.05);
         }
 
         .cart-summary {
-            border-top: 2px solid var(--card-bg);
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .cart-summary-row.divider {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 0.5rem;
             padding-top: 1rem;
-            margin-bottom: 2rem;
         }
 
         .cart-total {
             display: flex;
             justify-content: space-between;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            padding: 1rem 0;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--primary-color);
+            color: var(--primary-color);
         }
 
         .first-purchase-discount {
@@ -629,27 +975,49 @@
         .checkout-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .checkout-btn {
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .checkout-btn:active {
+            transform: translateY(0);
         }
 
         .venmo-btn {
-            background: #3D95CE;
+            background: linear-gradient(135deg, #3D95CE, #2c7eb8);
             color: white;
         }
 
         .cash-btn {
-            background: var(--success);
+            background: linear-gradient(135deg, var(--success), #27ae60);
             color: white;
+        }
+
+        .payment-note {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .empty-cart {
@@ -660,8 +1028,9 @@
 
         /* Survivors Section */
         .survivors-section {
-            padding: 4rem 2rem;
-            background: var(--card-bg);
+            padding: 5rem 2rem;
+            background: #ffffff;
+            position: relative;
         }
 
         .survivors-grid {
@@ -676,13 +1045,32 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .survivor-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(139,0,0,0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
         }
 
         .survivor-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.15);
+        }
+
+        .survivor-card:hover::after {
+            opacity: 1;
         }
 
         .survivor-photo {
@@ -698,19 +1086,21 @@
         }
 
         .survivor-info {
-            padding: 1.5rem;
+            padding: 1.75rem;
         }
 
         .survivor-info h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
         .survivor-tagline {
-            color: var(--text-light);
+            color: #666;
             font-style: italic;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
 
         /* Footer */
@@ -964,6 +1354,48 @@
             .btn {
                 width: 100%;
             }
+
+            .cart-item {
+                flex-wrap: wrap;
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+
+            .cart-item-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .cart-item-info {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .cart-item-name {
+                font-size: 0.95rem;
+            }
+
+            .cart-item-price {
+                font-size: 1rem;
+                order: 3;
+                flex-basis: 100%;
+                text-align: right;
+                margin: 0.5rem 0 0 0;
+            }
+
+            .remove-item {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+
+            .cart-summary {
+                padding: 1rem;
+            }
+
+            .cart-total {
+                font-size: 1.2rem;
+            }
         }
 
         /* Checkout modal form styling: target left column only */
@@ -1120,37 +1552,62 @@
 
     <!-- Christmas Deals Section -->
     <section class="christmas-deals" id="christmas">
-        <h2><i class="fas fa-tree"></i> Christmas Deals & Bundles <i class="fas fa-tree"></i></h2>
+        <h2><i class="fas fa-gift"></i> Christmas Deals & Bundles <i class="fas fa-gift"></i></h2>
+        <p>Limited time holiday bundles - Save up to 40% on curated collections!</p>
         <div class="bundles-grid">
             <div class="bundle-card">
-                <img src="products/Gold Rings.png" alt="Diamond Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-                <h3><i class="fas fa-gem"></i> Diamond Bundle</h3>
-                <p>3 diamond rings - perfect for gifting or collecting</p>
-                <div class="bundle-price">
-                    $12.00
-                    <div class="original-price">$18.00</div>
+                <div class="bundle-badge badge-popular">Popular</div>
+                <div class="bundle-image">
+                    <img src="products/Gold Rings.png" alt="Diamond Bundle">
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Diamond Bundle', 12.00)">Add to Cart</button>
+                <div class="bundle-content">
+                    <h3><i class="fas fa-gem"></i> Diamond Bundle</h3>
+                    <p>3 exquisite diamond rings - perfect for gifting or collecting</p>
+                    <div class="bundle-price">
+                        $12.00
+                        <span class="original-price">$18.00</span>
+                    </div>
+                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Diamond Bundle', 12.00)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
             </div>
             <div class="bundle-card">
-                <img src="products/Gold Rings.png" alt="Simple Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-                <h3><i class="fas fa-circle"></i> Simple Bundle</h3>
-                <p>6 simple rings - affordable and elegant collection</p>
-                <div class="bundle-price">
-                    $9.00
-                    <div class="original-price">$15.00</div>
+                <div class="bundle-badge badge-new">New</div>
+                <div class="bundle-image">
+                    <img src="products/Gold Rings.png" alt="Simple Bundle">
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Simple Bundle', 9.00)">Add to Cart</button>
+                <div class="bundle-content">
+                    <h3><i class="fas fa-circle"></i> Simple Bundle</h3>
+                    <p>6 elegant simple rings - affordable and timeless collection</p>
+                    <div class="bundle-price">
+                        $9.00
+                        <span class="original-price">$15.00</span>
+                    </div>
+                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Simple Bundle', 9.00)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
             </div>
             <div class="bundle-card">
-                <img src="products/Gold Rings.png" alt="Whole Bundle" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
-                <h3><i class="fas fa-heart"></i> Whole Bundle</h3>
-                <p>Both diamond and simple rings bundle - complete collection</p>
-                <div class="bundle-price">
-                    $14.00
-                    <div class="original-price">$20.00</div>
+                <div class="bundle-badge badge-popular">Popular</div>
+                <div class="bundle-image">
+                    <img src="products/Gold Rings.png" alt="Whole Bundle">
                 </div>
-                <button class="btn btn-primary" onclick="addBundleToCart('Whole Bundle', 14.00)">Add to Cart</button>
+                <div class="bundle-content">
+                    <h3><i class="fas fa-heart"></i> Whole Bundle</h3>
+                    <p>Complete collection - both diamond and simple rings together</p>
+                    <div class="bundle-price">
+                        $14.00
+                        <span class="original-price">$20.00</span>
+                    </div>
+                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Whole Bundle', 14.00)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -1346,27 +1803,29 @@
                 name: "AnnaKate Blood Drop Necklace",
                 survivor: "AnnaKate",
                 description: "Yellow gold brass cable chain and teardrop, 2g metal",
-                price: 15.00,
+                price: 18.00,
                 icon: '<i class="fas fa-gem"></i>',
                 image: "products/AnnaKate Blood Drop Necklace.png",
-                type: "necklace"
+                type: "necklace",
+                badge: "popular"
             },
             {
                 id: 2,
                 name: "Sofia Blood Drop Gem Necklace",
                 survivor: "Sofia",
                 description: "C-link chain with lobster clasp, gold stainless steel, & red glass gem",
-                price: 15.00,
+                price: 18.00,
                 icon: '<i class="fas fa-star"></i>',
                 image: "products/Sofia Blood Drop Gem Necklace .png",
-                type: "necklace"
+                type: "necklace",
+                badge: "new"
             },
             {
                 id: 3,
                 name: "Henry Chain Necklace",
                 survivor: "Henry",
                 description: "18\" or 20\" (length) 0.4\"(width) stainless steel wheat type chain with lobster clasp",
-                price: 15.00,
+                price: 12.00,
                 icon: '<i class="fas fa-shield-halved"></i>',
                 image: "products/Henry Chain Necklace.png",
                 type: "necklace"
@@ -1376,7 +1835,7 @@
                 name: "Will Cross Necklace",
                 survivor: "Will",
                 description: "22\" or 20\" 5g stainless steel chain with lobster clasp and cross",
-                price: 15.00,
+                price: 10.00,
                 icon: '<i class="fas fa-sparkles"></i>',
                 image: "products/Will Cross Necklace.png",
                 type: "necklace"
@@ -1386,27 +1845,39 @@
                 name: "Emily Heart Knot Necklace",
                 survivor: "Emily",
                 description: "Gold brass chain with heart knot charm",
-                price: 15.00,
+                price: 18.00,
                 icon: '<i class="fas fa-heart"></i>',
                 image: "products/Emily Heart Knot Necklace.png",
                 type: "necklace"
             },
             {
                 id: 6,
-                name: "Gabe Chain Bracelet 3 pack",
+                name: "Gabe Chain Bracelet (3-pack)",
                 survivor: "Gabe",
-                description: "Sterling silver, cable chain and other chain variants. Bracelets with lobster clasps",
-                price: 15.00,
+                description: "Sterling silver chain variants. Sold as a 3-pack (three bracelets).",
+                price: 16.00,
                 icon: '<i class="fas fa-trophy"></i>',
                 image: "products/Gabe Chain Bracelet.png",
                 type: "bracelet"
             },
             {
+                id: 15,
+                name: "Gabe Chain Bracelet (Single)",
+                survivor: "Gabe",
+                description: "Sterling silver chain bracelet. Choose up to 3 single bracelets.",
+                price: 7.00,
+                icon: '<i class="fas fa-trophy"></i>',
+                image: "products/Gabe Chain Bracelet.png",
+                type: "bracelet",
+                customizationCount: 3,
+                maxQuantity: 3
+            },
+            {
                 id: 7,
                 name: "Beaded Bracelets",
                 survivor: "Blood Cancer Survivors",
-                description: "Brass beads, elastic band with lobster claw. $7 each",
-                price: 7.00,
+                description: "Brass beads, elastic band with lobster claw. $6 each",
+                price: 6.00,
                 icon: '<i class="fas fa-hand-fist"></i>',
                 image: "products/BeadedBracelets.png",
                 type: "bracelet"
@@ -1416,17 +1887,18 @@
                 name: "Nicole Earrings",
                 survivor: "Nicole",
                 description: "Stainless steel snap back dangle earrings with red gems",
-                price: 14.00,
+                price: 16.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Nicole Earrings.png",
-                type: "earrings"
+                type: "earrings",
+                badge: "popular"
             },
             {
                 id: 9,
                 name: "Diamond Bundle",
                 survivor: "Blood Cancer Survivors",
                 description: "3 diamond rings",
-                price: 12.00,
+                price: 9.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Gold Rings.png",
                 type: "ring"
@@ -1436,7 +1908,7 @@
                 name: "Simple Bundle",
                 survivor: "Blood Cancer Survivors",
                 description: "6 simple rings",
-                price: 9.00,
+                price: 10.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Gold Rings.png",
                 type: "ring"
@@ -1446,7 +1918,7 @@
                 name: "Whole Bundle",
                 survivor: "Blood Cancer Survivors",
                 description: "Both diamond and simple rings bundle",
-                price: 14.00,
+                price: 16.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Gold Rings.png",
                 type: "ring"
@@ -1457,6 +1929,7 @@
                 survivor: "Melanie",
                 description: "Adjustable stainless steel gold ring with heart gemstone",
                 price: 12.00,
+                badge: "new",
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Melanie Heart Adjustable Ring.png",
                 type: "ring"
@@ -1464,16 +1937,25 @@
             ,
             {
                 id: 13,
-                name: "Bangle Bracelets",
+                name: "Bangle Bracelet (Single)",
                 survivor: "Blood Cancer Survivors",
-                description: "Classic bangle bracelets. $6 each or 5 for $20. Choose which bracelet (1-5).",
-                priceSingle: 6.00,
-                priceFive: 20.00,
+                description: "Classic bangle bracelet. Choose which bracelet (1-5).",
                 price: 6.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/banglebracelets.jpeg",
                 type: "bracelet",
-                isBangle: true
+                customizationCount: 1
+            },
+            {
+                id: 14,
+                name: "Bangle Bracelets (5-pack)",
+                survivor: "Blood Cancer Survivors",
+                description: "Classic bangle bracelets - 5 pack. Choose up to 5 bracelet choices.",
+                price: 20.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/banglebracelets.jpeg",
+                type: "bracelet",
+                customizationCount: 5
             }
         ];
 
@@ -1548,6 +2030,7 @@
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = products.map(product => `
                 <div class="product-card" onclick="openProductModal(${product.id})">
+                    ${product.badge ? `<div class="product-badge badge-${product.badge}">${product.badge === 'popular' ? 'Popular' : 'New'}</div>` : ''}
                     <div class="product-image"><img src="${product.image}" alt="${product.name}"></div>
                     <div class="product-info">
                         <div class="survivor-name">In Honor of ${product.survivor}</div>
@@ -1603,39 +2086,8 @@
             // track which product is shown and reset quantity
             currentModalProductId = productId;
             modalQty = 1;
-            if (product.isBangle) {
-                modalContent.innerHTML = `
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <img src="${product.image}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 1rem;">
-                    <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
-                    <p style="color: var(--text-light); margin-top: 1rem;">${product.description}</p>
-                    <div class="product-price" style="margin-top: 1rem;">$${product.priceSingle.toFixed(2)} each · 5 for $${product.priceFive.toFixed(2)}</div>
-                </div>
-
-                <div class="product-customization">
-                    <div class="customization-group">
-                        <label>Quantity:</label>
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
-                            <span id="modal-qty" style="font-size: 1.2rem; font-weight: 600;">1</span>
-                            <button class="qty-btn" onclick="changeModalQty(1)">+</button>
-                        </div>
-                        <small style="display: block; margin-top: 0.5rem; color: #666;">Bundle pricing applies automatically (e.g., 6 = 5-for-$20 + $6).</small>
-                    </div>
-
-                    <div class="customization-group">
-                        <label>Select bracelet choices:</label>
-                        <div id="modal-customization-container"></div>
-                    </div>
-
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 2rem;" 
-                        onclick="addCustomizedToCart(${productId})">
-                        Add to Cart
-                    </button>
-                </div>
-            `;
-            } else {
-                modalContent.innerHTML = `
+            // universal modal for products; supports optional customizationCount
+            modalContent.innerHTML = `
                 <div style="text-align: center; margin-bottom: 2rem;">
                     <img src="${product.image}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 1rem;">
                     <div class="survivor-name" style="font-size: 1.2rem;">In Honor of ${product.survivor}</div>
@@ -1653,16 +2105,23 @@
                         </div>
                     </div>
 
+                    ${product.customizationCount ? `
+                    <div class="customization-group">
+                        <label>Select bracelet choices:</label>
+                        <div id="modal-customization-container"></div>
+                    </div>
+                    ` : ''}
+
                     <button class="btn btn-primary" style="width: 100%; margin-top: 2rem;" 
                         onclick="addCustomizedToCart(${productId})">
                         Add to Cart
                     </button>
                 </div>
             `;
-            }
             modal.classList.add('active');
-            // if bangle product, render initial selector(s)
-            if (product.isBangle) renderBangleCustomizationSelectors(modalQty);
+            // render selectors according to the current quantity (but no more than customizationCount)
+            const selectorCount = product.customizationCount ? Math.min(modalQty, product.customizationCount) : 0;
+            renderCustomizationSelectors(selectorCount, productId);
         }
 
         function closeProductModal() {
@@ -1673,21 +2132,50 @@
         let currentModalProductId = null;
 
         function changeModalQty(delta) {
-            modalQty = Math.max(1, modalQty + delta);
+                    modalQty = Math.max(1, modalQty + delta);
             const qtyEl = document.getElementById('modal-qty');
             if (qtyEl) qtyEl.textContent = modalQty;
             // If the current product in modal is a bangle, re-render the select fields
             if (currentModalProductId) {
-                const prod = products.find(p => p.id === currentModalProductId);
-                if (prod && prod.isBangle) {
-                    renderBangleCustomizationSelectors(modalQty);
-                }
-            }
+                                const prod = products.find(p => p.id === currentModalProductId);
+                                if (prod) {
+                                    // enforce maxQuantity if defined
+                                    if (prod.maxQuantity) {
+                                        modalQty = Math.min(modalQty, prod.maxQuantity);
+                                        if (qtyEl) qtyEl.textContent = modalQty;
+                                    }
+                                    // compute selector count: for products with customizationCount use modalQty (unless fixed-pack),
+                                    // otherwise pass 0 so renderer can show a fixed message for fixed packs (ids 6 or 14)
+                                    const selectorCount = prod.customizationCount ? modalQty : 0;
+                                    renderCustomizationSelectors(selectorCount, prod.id);
+                                }
+                    }
         }
 
-        function renderBangleCustomizationSelectors(count) {
+
+        function renderCustomizationSelectors(count, productId) {
             const container = document.getElementById('modal-customization-container');
             if (!container) return;
+            // fixed-pack product ids that include all bracelets (no selection)
+            const fixedPackIds = [14, 6]; // 14 = 5-pack, 6 = Gabe 3-pack
+            if (fixedPackIds.includes(productId)) {
+                // Different messaging for 3-pack vs 5-pack
+                if (productId === 14) {
+                    container.innerHTML = `<div style="color:#333; padding:0.5rem;">This 5-pack contains all five bracelets; choices are not required.</div>`;
+                } else if (productId === 6) {
+                    container.innerHTML = `<div style="color:#333; padding:0.5rem;">This 3-pack contains all three Gabe bracelets; choices are not required.</div>`;
+                } else {
+                    container.innerHTML = '';
+                }
+                return;
+            }
+
+            // If no selectors required, clear container
+            if (!count || count <= 0) {
+                container.innerHTML = '';
+                return;
+            }
+
             let html = '';
             for (let i = 1; i <= count; i++) {
                 html += `
@@ -1721,21 +2209,21 @@
             let totalPrice = 0;
             let customization = '';
 
-            if (product.isBangle) {
-                const count = modalQty;
-                const fives = Math.floor(count / 5);
-                const singles = count % 5;
-                totalPrice = (fives * product.priceFive) + (singles * product.priceSingle);
-
-                const selects = Array.from(document.querySelectorAll('.modal-customization-select'));
-                if (selects.length) {
-                    customization = selects.map(s => s.value || '').join(', ');
-                } else {
-                    const sel = document.getElementById('modal-customization');
-                    if (sel) customization = sel.value || '';
-                }
+            totalPrice = product.price * modalQty;
+            const selects = Array.from(document.querySelectorAll('.modal-customization-select'));
+            if (selects.length) {
+                customization = selects.map(s => s.value || '').join(', ');
             } else {
-                totalPrice = product.price * modalQty;
+                const sel = document.getElementById('modal-customization');
+                if (sel) customization = sel.value || '';
+            }
+
+            // For fixed-pack products indicate they contain all bracelets
+            if (product.id === 14) {
+                customization = 'Contains all 5 bracelets';
+            }
+            if (product.id === 6) {
+                customization = 'Contains all 3 Gabe bracelets';
             }
 
             const cartItem = {
@@ -1744,7 +2232,7 @@
                 name: product.name,
                 icon: product.icon,
                 image: product.image,
-                basePrice: product.price || product.priceSingle || 0,
+                basePrice: product.price || 0,
                 quantity: modalQty,
                 totalPrice: totalPrice,
                 customization: customization
@@ -1803,12 +2291,12 @@
                 <div class="cart-items">
                     ${cart.map(item => `
                         <div class="cart-item">
-                            <div class="cart-item-image">${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">` : item.icon}</div>
+                            <div class="cart-item-image">${item.image ? `<img src="${item.image}" alt="${item.name}">` : item.icon}</div>
                             <div class="cart-item-info">
                                 <div class="cart-item-name">${item.name}</div>
-                                ${item.customization && item.customization.length ? `<div class="cart-item-options">Options: ${item.customization}</div>` : ''}
+                                ${item.customization && item.customization.length ? `<div class="cart-item-options">${item.customization}</div>` : ''}
                                 <div class="cart-item-quantity">
-                                    <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)">-</button>
+                                    <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)">−</button>
                                     <span>${item.quantity}</span>
                                     <button class="qty-btn" onclick="updateItemQty(${item.id}, 1)">+</button>
                                 </div>
@@ -1819,87 +2307,98 @@
                     `).join('')}
                 </div>
 
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="margin: 0 0 1rem 0; color: var(--primary-color); font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-box"></i> Packaging Options
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <label style="display: flex; align-items: flex-start; cursor: pointer; padding: 0.75rem; border: 2px solid ${selectedPackaging === 'standard' ? 'var(--primary-color)' : '#e0e0e0'}; border-radius: 10px; background: ${selectedPackaging === 'standard' ? '#fff5f5' : 'white'}; transition: all 0.2s;">
+                            <input type="radio" name="packaging" value="standard" ${selectedPackaging === 'standard' ? 'checked' : ''} onchange="updatePackaging('standard')" style="margin-top: 0.25rem; margin-right: 0.75rem; accent-color: var(--primary-color);">
+                            <div style="flex: 1;">
+                                <strong style="color: #2c3e50; display: block; margin-bottom: 0.25rem;">Red Velvet Pouch</strong>
+                                <small style="color: #7f8c8d; display: block;">Double drawstring 3"×4"</small>
+                                <strong style="color: var(--success); display: block; margin-top: 0.25rem;">Free</strong>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; cursor: pointer; padding: 0.75rem; border: 2px solid ${selectedPackaging === 'premium' ? 'var(--primary-color)' : '#e0e0e0'}; border-radius: 10px; background: ${selectedPackaging === 'premium' ? '#fff5f5' : 'white'}; transition: all 0.2s;">
+                            <input type="radio" name="packaging" value="premium" ${selectedPackaging === 'premium' ? 'checked' : ''} onchange="updatePackaging('premium')" style="margin-top: 0.25rem; margin-right: 0.75rem; accent-color: var(--primary-color);">
+                            <div style="flex: 1;">
+                                <strong style="color: #2c3e50; display: block; margin-bottom: 0.25rem;">Travel Storage Case</strong>
+                                <small style="color: #7f8c8d; display: block;">Multiple compartments 10"×10"×5"</small>
+                                <strong style="color: var(--primary-color); display: block; margin-top: 0.25rem;">+$20.00</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="margin: 0 0 1rem 0; color: var(--primary-color); font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-truck"></i> Delivery Options
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <label style="display: flex; align-items: flex-start; cursor: pointer; padding: 0.75rem; border: 2px solid ${selectedShipping === 'central' ? 'var(--primary-color)' : '#e0e0e0'}; border-radius: 10px; background: ${selectedShipping === 'central' ? '#fff5f5' : 'white'}; transition: all 0.2s;">
+                            <input type="radio" name="shipping" value="central" ${selectedShipping === 'central' ? 'checked' : ''} onchange="updateShipping('central')" style="margin-top: 0.25rem; margin-right: 0.75rem; accent-color: var(--primary-color);">
+                            <div style="flex: 1;">
+                                <strong style="color: #2c3e50; display: block; margin-bottom: 0.25rem;">Central Pickup</strong>
+                                <small style="color: #7f8c8d; display: block;">510 Lake St, Pewaukee (HS Office)</small>
+                                <strong style="color: var(--success); display: block; margin-top: 0.25rem;">Free</strong>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; cursor: pointer; padding: 0.75rem; border: 2px solid ${selectedShipping === 'home' ? 'var(--primary-color)' : '#e0e0e0'}; border-radius: 10px; background: ${selectedShipping === 'home' ? '#fff5f5' : 'white'}; transition: all 0.2s;">
+                            <input type="radio" name="shipping" value="home" ${selectedShipping === 'home' ? 'checked' : ''} onchange="updateShipping('home')" style="margin-top: 0.25rem; margin-right: 0.75rem; accent-color: var(--primary-color);">
+                            <div style="flex: 1;">
+                                <strong style="color: #2c3e50; display: block; margin-bottom: 0.25rem;">Home Delivery</strong>
+                                <small style="color: #7f8c8d; display: block;">Delivered to your address</small>
+                                <strong style="color: var(--primary-color); display: block; margin-top: 0.25rem;">+$5.00</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="cart-summary">
-                    <div class="packaging-options" style="margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
-                        <h4 style="margin-bottom: 0.5rem; color: var(--primary-color);">Packaging Options</h4>
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input type="radio" name="packaging" value="standard" ${selectedPackaging === 'standard' ? 'checked' : ''} onchange="updatePackaging('standard')" style="margin-right: 0.5rem;">
-                                <div>
-                                    <strong>Standard: Red Velvet Pouch - Free</strong><br>
-                                    <small style="color: #666;">Red velvet with double drawstring 3"x4"</small>
-                                </div>
-                            </label>
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input type="radio" name="packaging" value="premium" ${selectedPackaging === 'premium' ? 'checked' : ''} onchange="updatePackaging('premium')" style="margin-right: 0.5rem;">
-                                <div>
-                                    <strong>Premium: Travel Storage Case - $20</strong><br>
-                                    <small style="color: #666;">Red velvet, faux leather, & polyurethane with multiple storage compartments 10"x10"x5"</small>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="shipping-options" style="margin-bottom: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
-                        <h4 style="margin-bottom: 0.5rem; color: var(--primary-color);">Shipping Options</h4>
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input type="radio" name="shipping" value="central" ${selectedShipping === 'central' ? 'checked' : ''} onchange="updateShipping('central')" style="margin-right: 0.5rem;">
-                                <div>
-                                    <strong>Central Location: 510 Lake St, Pewaukee (High School Office)</strong><br>
-                                    <small style="color: #666;">Free pickup</small>
-                                </div>
-                            </label>
-                            <label style="display: flex; align-items: center; cursor: pointer;">
-                                <input type="radio" name="shipping" value="home" ${selectedShipping === 'home' ? 'checked' : ''} onchange="updateShipping('home')" style="margin-right: 0.5rem;">
-                                <div>
-                                    <strong>Home Address: Additional Upcharge of $5</strong><br>
-                                    <small style="color: #666;">Home delivery</small>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span>Subtotal:</span>
-                        <span>$${subtotal.toFixed(2)}</span>
+                    <div class="cart-summary-row">
+                        <span>Subtotal</span>
+                        <span style="font-weight: 600;">$${subtotal.toFixed(2)}</span>
                     </div>
                     ${selectedPackaging === 'premium' ? `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span>Premium Packaging:</span>
-                            <span>$20.00</span>
+                        <div class="cart-summary-row">
+                            <span>Premium Packaging</span>
+                            <span style="font-weight: 600;">$20.00</span>
                         </div>
                     ` : ''}
                     ${selectedShipping === 'home' ? `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                            <span>Home Delivery:</span>
-                            <span>$5.00</span>
+                        <div class="cart-summary-row">
+                            <span>Home Delivery</span>
+                            <span style="font-weight: 600;">$5.00</span>
                         </div>
                     ` : ''}
-                    <div class="promo-section" style="margin: 1rem 0;">
-                        <input type="text" id="promoCodeInput" placeholder="Enter promo code" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; margin-right: 0.5rem;">
-                        <button onclick="applyPromoCode()" style="padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Apply</button>
+                    <div style="margin: 1rem 0; padding-top: 1rem; border-top: 1px solid #e0e0e0;">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="promoCodeInput" placeholder="Promo code" style="flex: 1; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 0.95rem;">
+                            <button onclick="applyPromoCode()" style="padding: 0.75rem 1.25rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s;">Apply</button>
+                        </div>
                     </div>
                     ${appliedPromo ? `
-                        <div class="promo-discount">
-                            <span><i class="fas fa-tag"></i></span>
-                            <span>Promo Code BCUDONO10 (10%):</span>
-                            <span style="margin-left: auto; font-weight: 600;">-$${discount.toFixed(2)}</span>
+                        <div class="cart-summary-row" style="color: var(--success);">
+                            <span><i class="fas fa-tag"></i> Promo Code (10%)</span>
+                            <span style="font-weight: 600;">-$${discount.toFixed(2)}</span>
                         </div>
                     ` : ''}
                     <div class="cart-total">
-                        <span>Total:</span>
+                        <span>Total</span>
                         <span>$${(total + (selectedPackaging === 'premium' ? 20 : 0) + (selectedShipping === 'home' ? 5 : 0)).toFixed(2)}</span>
                     </div>
                 </div>
 
                 <div class="checkout-buttons">
                     <button id="checkout-btn-venmo" class="checkout-btn venmo-btn" type="button">
-                        <i class="fas fa-credit-card"></i> Pay with Venmo
+                        <i class="fas fa-credit-card"></i>
+                        <span>Pay with Venmo</span>
                     </button>
-                    <div style="margin-top:6px; font-size:0.9rem; color:#666; text-align:center;">Instructions for completing Venmo payment will be emailed to you after placing the order.</div>
+                    <div class="payment-note">Venmo payment instructions will be emailed after placing order</div>
                     <button id="checkout-btn-cash" class="checkout-btn cash-btn" type="button">
-                        <i class="fas fa-money-bill-wave"></i> Cash Payment
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Cash Payment</span>
                     </button>
                 </div>
             `;
