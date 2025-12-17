@@ -1012,6 +1012,11 @@
             color: white;
         }
 
+        .revtrak-btn {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+        }
+
         .payment-note {
             margin-top: 0.5rem;
             font-size: 0.85rem;
@@ -2400,6 +2405,11 @@
                         <i class="fas fa-money-bill-wave"></i>
                         <span>Cash Payment</span>
                     </button>
+                    <button id="checkout-btn-revtrak" class="checkout-btn revtrak-btn" type="button">
+                        <i class="fas fa-building-columns"></i>
+                        <span>Pay with Revtrak</span>
+                    </button>
+                    <div class="payment-note">Complete payment through Revtrak, then submit order with receipt</div>
                 </div>
             `;
 
@@ -2416,6 +2426,12 @@
                     if (cashBtn._listener) cashBtn.removeEventListener('click', cashBtn._listener);
                     cashBtn._listener = function(e){ e.stopPropagation(); checkout('cash'); };
                     cashBtn.addEventListener('click', cashBtn._listener);
+                }
+                const revtrakBtn = cartItemsContainer.querySelector('#checkout-btn-revtrak') || cartItemsContainer.querySelector('.checkout-btn.revtrak-btn');
+                if (revtrakBtn) {
+                    if (revtrakBtn._listener) revtrakBtn.removeEventListener('click', revtrakBtn._listener);
+                    revtrakBtn._listener = function(e){ e.stopPropagation(); checkout('revtrak'); };
+                    revtrakBtn.addEventListener('click', revtrakBtn._listener);
                 }
             } catch (e) { console.error('attach checkout listeners error', e); }
 
@@ -2631,12 +2647,25 @@
 
                 // replace modal content with confirmation screen (no download)
                 const modalContent = document.querySelector('#checkoutModal .product-modal-content');
+                const revtrakInstructions = pendingPaymentMethod === 'revtrak' ? `
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: left;">
+                        <h3 style="margin-bottom: 0.5rem; color: #856404;"><i class="fas fa-info-circle"></i> Revtrak Payment Instructions</h3>
+                        <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                            <li>Go to: <a href="https://pewaukee.revtrak.net/donations-and-fundraisers/global-business-treasure-trove/" target="_blank" style="color: #e67e22; font-weight: 600;">Revtrak Payment Portal</a></li>
+                            <li>Enter your order amount: <strong style="color: var(--primary-color);">$${finalTotal.toFixed(2)}</strong></li>
+                            <li>Complete the payment</li>
+                            <li>Take a screenshot or forward the receipt email to:<br><strong style="color: var(--primary-color);">brewsam26@Pewaukeeschools.org</strong></li>
+                            <li>Include your Order ID: <strong>${orderId}</strong></li>
+                        </ol>
+                    </div>
+                ` : '';
                 modalContent.innerHTML = `
                     <div style="padding: 1rem; text-align: center;">
                         <h2 style="color: var(--primary-color);">Order Confirmed</h2>
                         <p style="font-size:1rem;">Thank you — your order has been received.</p>
                         <p style="margin-top:8px;">Order ID: <strong>${orderId}</strong></p>
                         <p style="margin-top:8px;">A confirmation email has been sent to <strong id="confirmed-email"></strong>.</p>
+                        ${revtrakInstructions}
                         <div style="margin-top:16px;"><button class="btn btn-primary" onclick="document.getElementById('checkoutModal').classList.remove('active')">Close</button></div>
                     </div>
                 `;

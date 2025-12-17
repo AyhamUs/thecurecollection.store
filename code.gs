@@ -284,6 +284,13 @@ function buildReceiptText(order) {
     text += `\nPlease send payment to Venmo: @Brewsters6 and include Order ID ${order.orderId} in the payment note.\n`;
   } else if (order.paymentMethod === 'cash') {
     text += `\nYour order will be paid in cash at pickup/delivery.\n`;
+  } else if (order.paymentMethod === 'revtrak') {
+    text += `\nREVTRAK PAYMENT INSTRUCTIONS:\n`;
+    text += `1. Go to: https://pewaukee.revtrak.net/donations-and-fundraisers/global-business-treasure-trove/\n`;
+    text += `2. Enter your order amount: $${finalTotal.toFixed(2)}\n`;
+    text += `3. Complete the payment\n`;
+    text += `4. Take a screenshot or forward the receipt email to: brewsam26@Pewaukeeschools.org\n`;
+    text += `5. Include your Order ID: ${order.orderId}\n`;
   }
 
   text += `\nThank you for supporting blood cancer warriors!\n`;
@@ -330,9 +337,29 @@ function buildReceiptHtml(order) {
   const discount = order.appliedPromo ? (Number(order.subtotal) * 0.1) : 0;
   const finalTotal = Number(order.subtotal) - discount + packagingCost + shippingCost;
 
-  const paymentInstruction = (order.paymentMethod === 'venmo')
-    ? `<p>Please send payment to <strong>@Brewsters6</strong> on Venmo and include <strong>Order ID ${escapeHtml(order.orderId)}</strong> in the payment note.</p>`
-    : `<p>Pay with cash at pickup or delivery. Please bring exact change if possible.</p>`;
+  let paymentInstruction = '';
+  if (order.paymentMethod === 'venmo') {
+    paymentInstruction = `<p>Please send payment to <strong>@Brewsters6</strong> on Venmo and include <strong>Order ID ${escapeHtml(order.orderId)}</strong> in the payment note.</p>`;
+  } else if (order.paymentMethod === 'cash') {
+    paymentInstruction = `<p>Pay with cash at pickup or delivery. Please bring exact change if possible.</p>`;
+  } else if (order.paymentMethod === 'revtrak') {
+    const packagingCost = order.packaging === 'premium' ? 20 : 0;
+    const shippingCost = order.shipping === 'home' ? 5 : 0;
+    const discount = order.appliedPromo ? (Number(order.subtotal) * 0.1) : 0;
+    const finalTotal = Number(order.subtotal) - discount + packagingCost + shippingCost;
+    paymentInstruction = `
+      <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 12px; margin-top: 12px;">
+        <h3 style="color: #856404; margin-bottom: 8px;">Revtrak Payment Instructions</h3>
+        <ol style="margin-left: 20px; line-height: 1.8; color: #856404;">
+          <li>Go to: <a href="https://pewaukee.revtrak.net/donations-and-fundraisers/global-business-treasure-trove/" style="color: #e67e22;">Revtrak Payment Portal</a></li>
+          <li>Enter your order amount: <strong>$${finalTotal.toFixed(2)}</strong></li>
+          <li>Complete the payment</li>
+          <li>Take a screenshot or forward the receipt email to: <strong>brewsam26@Pewaukeeschools.org</strong></li>
+          <li>Include your Order ID: <strong>${escapeHtml(order.orderId)}</strong></li>
+        </ol>
+      </div>
+    `;
+  }
 
   const html = `<!doctype html>
   <html>
