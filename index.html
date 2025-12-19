@@ -1569,11 +1569,9 @@
                     <h3><i class="fas fa-gem"></i> Diamond Bundle</h3>
                     <p>3 exquisite diamond rings - perfect for gifting or collecting</p>
                     <div class="bundle-price">
-                        $12.00
-                        <span class="original-price">$18.00</span>
+                        $9.00
                     </div>
-                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Diamond Bundle', 12.00)">
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Diamond Bundle', 9.00)">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                 </div>
@@ -1587,11 +1585,9 @@
                     <h3><i class="fas fa-circle"></i> Simple Bundle</h3>
                     <p>6 elegant simple rings - affordable and timeless collection</p>
                     <div class="bundle-price">
-                        $9.00
-                        <span class="original-price">$15.00</span>
+                        $10.00
                     </div>
-                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Simple Bundle', 9.00)">
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Simple Bundle', 10.00)">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                 </div>
@@ -1605,11 +1601,27 @@
                     <h3><i class="fas fa-heart"></i> Whole Bundle</h3>
                     <p>Complete collection - both diamond and simple rings together</p>
                     <div class="bundle-price">
-                        $14.00
-                        <span class="original-price">$20.00</span>
+                        $20.00
                     </div>
-                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $6</div>
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Whole Bundle', 14.00)">
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="addBundleToCart('Whole Bundle', 20.00)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <div class="bundle-card">
+                <div class="bundle-badge badge-new">New</div>
+                <div class="bundle-image">
+                    <img src="products/BeadedBracelets.png" alt="Beaded Jewelry Bundle">
+                </div>
+                <div class="bundle-content">
+                    <h3><i class="fas fa-hand-fist"></i> Beaded Jewelry Bundle</h3>
+                    <p>5 beautiful beaded jewelry pieces - elegant and affordable</p>
+                    <div class="bundle-price">
+                        $20.00
+                        <span class="original-price">$35.00</span>
+                    </div>
+                    <div class="savings-tag"><i class="fas fa-tag"></i> Save $15</div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1.25rem;" onclick="openProductModal(19)">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                 </div>
@@ -1878,13 +1890,64 @@
                 maxQuantity: 3
             },
             {
-                id: 7,
-                name: "Beaded Bracelets",
+                id: 16,
+                name: "Silver Dainty Charm Bracelet",
                 survivor: "Blood Cancer Survivors",
-                description: "Brass beads, elastic band with lobster claw. $6 each",
+                description: "Elegant silver dainty charm bracelet",
                 price: 6.00,
+                icon: '<i class="fas fa-gem"></i>',
+                image: "products/Dainty Silver Bracelet.jpeg",
+                type: "bracelet"
+            },
+            {
+                id: 17,
+                name: "Gold Dainty Charm Bracelet",
+                survivor: "Blood Cancer Survivors",
+                description: "Elegant gold dainty charm bracelet",
+                price: 6.00,
+                icon: '<i class="fas fa-gem"></i>',
+                image: "products/Dainy Gold Bracelet.jpeg",
+                type: "bracelet"
+            },
+            {
+                id: 18,
+                name: "Beaded Bracelet (Single)",
+                survivor: "Blood Cancer Survivors",
+                description: "Beautiful beaded bracelet",
+                price: 7.00,
                 icon: '<i class="fas fa-hand-fist"></i>',
                 image: "products/BeadedBracelets.png",
+                type: "bracelet"
+            },
+            {
+                id: 19,
+                name: "Beaded Bracelet (5-pack)",
+                survivor: "Blood Cancer Survivors",
+                description: "Beautiful beaded bracelets - 5 pack",
+                price: 20.00,
+                icon: '<i class="fas fa-hand-fist"></i>',
+                image: "products/BeadedBracelets.png",
+                type: "bracelet",
+                badge: "new"
+            },
+            {
+                id: 20,
+                name: "Gold Bangle Bracelet (Single)",
+                survivor: "Blood Cancer Survivors",
+                description: "Gold bangle bracelet",
+                price: 8.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/banglebracelets.jpeg",
+                type: "bracelet"
+            },
+            {
+                id: 21,
+                name: "Gold Bangle Bracelet (5-pack)",
+                survivor: "Blood Cancer Survivors",
+                description: "Gold bangle bracelets - 5 pack",
+                price: 30.00,
+                icon: '<i class="fas fa-circle"></i>',
+                image: "products/banglebracelets.jpeg",
                 type: "bracelet"
             },
             {
@@ -1922,8 +1985,8 @@
                 id: 11,
                 name: "Whole Bundle",
                 survivor: "Blood Cancer Survivors",
-                description: "Both diamond and simple rings bundle",
-                price: 16.00,
+                description: "Complete collection - both diamond and simple rings",
+                price: 20.00,
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Gold Rings.png",
                 type: "ring"
@@ -1938,29 +2001,6 @@
                 icon: '<i class="fas fa-circle"></i>',
                 image: "products/Melanie Heart Adjustable Ring.png",
                 type: "ring"
-            }
-            ,
-            {
-                id: 13,
-                name: "Bangle Bracelet (Single)",
-                survivor: "Blood Cancer Survivors",
-                description: "Classic bangle bracelet. Choose which bracelet (1-5).",
-                price: 6.00,
-                icon: '<i class="fas fa-circle"></i>',
-                image: "products/banglebracelets.jpeg",
-                type: "bracelet",
-                customizationCount: 5
-            },
-            {
-                id: 14,
-                name: "Bangle Bracelets (5-pack)",
-                survivor: "Blood Cancer Survivors",
-                description: "Classic bangle bracelets - 5 pack. Choose up to 5 bracelet choices.",
-                price: 20.00,
-                icon: '<i class="fas fa-circle"></i>',
-                image: "products/banglebracelets.jpeg",
-                type: "bracelet",
-                customizationCount: 5
             }
         ];
 
